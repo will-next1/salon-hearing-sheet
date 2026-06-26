@@ -124,6 +124,11 @@
     .cta h2 { color: var(--white); }
     .cta p { color: #d9e0e6; margin: 10px 0 0; font-size: .92rem; }
     .cta .button { margin-top: 18px; width: 100%; }
+    .consult-guide { display: none; margin-top: 16px; padding: 16px; background: #edf4ed; color: var(--navy); border-left: 4px solid #739373; }
+    .consult-guide.is-visible { display: block; }
+    .cta .consult-guide p { margin: 0; color: var(--navy); font-weight: 800; }
+    .consult-guide ol { margin: 10px 0 0; padding-left: 1.3em; color: var(--ink); font-size: .9rem; }
+    .consult-guide li + li { margin-top: 5px; }
     .support-section { padding: 22px; margin-top: 20px; }
     .support-list { display: grid; gap: 8px; }
     .support-list li { position: relative; padding-left: 20px; color: var(--ink); font-size: .9rem; }
@@ -228,7 +233,16 @@
         <section class="cta" aria-labelledby="cta-title">
           <h2 id="cta-title">詳しい改善方法は、ウィルネクストで一緒に整理できます</h2>
           <p>この詳細診断では、現在の経営・集客状況から優先して確認したい領域を整理しています。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
-          <a class="button button-gold" href="#">診断結果をもとに相談する</a>
+          <button class="button button-gold" type="button" id="consult-button">診断結果をもとに相談する</button>
+          <div class="consult-guide" id="consult-guide" aria-live="polite">
+            <p>下記、診断結果をご自身のメールに貼り付け、送信してください。</p>
+            <ol>
+              <li>「メール用に診断結果をコピーする」ボタンを押してください。</li>
+              <li>コピーされた診断結果をメール本文に貼り付けてください。</li>
+              <li>メール本文内に「宛先：consul.will.next@gmail.com」の記載がありますので、メールの宛先欄に貼り付けてください。</li>
+              <li>内容をご確認のうえ、送信してください。</li>
+            </ol>
+          </div>
         </section>
 
         <section class="support-section" aria-labelledby="support-title">
@@ -374,6 +388,7 @@
     const formError = document.getElementById('form-error');
     const result = document.getElementById('result');
     const copyMessage = document.getElementById('copy-message');
+    const consultGuide = document.getElementById('consult-guide');
 
     function renderQuestions() {
       questionSections.innerHTML = diagnosisCategories.map((category, categoryIndex) => `
@@ -466,6 +481,7 @@
       result.dataset.result = JSON.stringify({ totalScore, rank, scoreData, priorities, strengths });
       result.classList.add('is-visible');
       copyMessage.classList.remove('is-visible');
+      consultGuide.classList.remove('is-visible');
     }
 
     function buildEmailText() {
@@ -474,8 +490,8 @@
       const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
       const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
       const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性があり、現在の強みとして活かせる点を確認するとよさそうです。`).join('\n\n');
-      return `宛先案：
-[consul.will.next@gmail.com](mailto:consul.will.next@gmail.com)
+      return `宛先：
+consul.will.next@gmail.com
 
 件名案：【美容サロン向け 経営・集客 詳細診断】診断結果メモ
 
@@ -528,7 +544,7 @@ ${supportItems.map(item => `・${item}`).join('\n')}
           textarea.remove();
           if (!copied) throw new Error('Copy failed');
         }
-        copyMessage.textContent = 'コピーしました。メール本文に貼り付けてご利用ください。メール本文内に「宛先案：[consul.will.next@gmail.com](mailto:consul.will.next@gmail.com)」の記載がありますので、コピーしてメールの宛先欄に貼り付けてください。';
+        copyMessage.textContent = 'コピーしました。メール本文に貼り付けてご利用ください。メール本文内に「宛先：consul.will.next@gmail.com」の記載がありますので、コピーしてメールの宛先欄に貼り付けてください。';
       } catch (_error) {
         copyMessage.textContent = 'コピーできませんでした。結果欄を選択して手動でコピーしてください。';
       }
@@ -542,7 +558,13 @@ ${supportItems.map(item => `・${item}`).join('\n')}
       result.classList.remove('is-visible');
       delete result.dataset.result;
       copyMessage.classList.remove('is-visible');
+      consultGuide.classList.remove('is-visible');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showConsultGuide() {
+      consultGuide.classList.add('is-visible');
+      consultGuide.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     form.addEventListener('change', clearUnansweredStates);
@@ -565,6 +587,7 @@ ${supportItems.map(item => `・${item}`).join('\n')}
 
     document.getElementById('copy-button').addEventListener('click', copyEmailText);
     document.getElementById('reset-button').addEventListener('click', resetDiagnosis);
+    document.getElementById('consult-button').addEventListener('click', showConsultGuide);
     renderQuestions();
   </script>
 </body>
