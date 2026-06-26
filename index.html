@@ -18,6 +18,7 @@
       --muted: #65707d;
       --line: #ded6c9;
       --white: #ffffff;
+      --danger-soft: #f7ebe3;
       --shadow: 0 16px 38px rgba(20, 38, 61, 0.10);
       --radius: 8px;
     }
@@ -115,6 +116,26 @@
       max-width: 790px;
       color: var(--muted);
       font-size: 1rem;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-points li {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--navy-soft);
+      font-size: 0.93rem;
+      font-weight: 700;
+      line-height: 1.55;
     }
 
     .hero-actions {
@@ -404,6 +425,16 @@
       background: #fff9ed;
     }
 
+    .priority-card.is-good {
+      border-color: #cfd7df;
+      background: #f8fbfc;
+    }
+
+    .priority-card.is-good .priority-number {
+      background: var(--gold);
+      color: #16120a;
+    }
+
     .priority-title {
       display: flex;
       align-items: center;
@@ -529,6 +560,10 @@
       .support-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .hero-points {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (min-width: 980px) {
@@ -563,15 +598,21 @@
         <div>
           <div class="brand-mark">Willnext meeting tool</div>
           <h1>サロンのお悩み整理シート</h1>
-          <p class="hero-copy">集客・売上・運営状況を一緒に整理し、今確認したい課題を見える化します。</p>
+          <p class="hero-copy">集客・売上・予約導線・メニューの見せ方を一緒に整理し、今確認したい課題を見える化します。</p>
           <p class="hero-text">このシートは、正確な経営診断ではなく、商談時に現在の状況を整理するためのヒアリング補助ツールです。入力内容をもとに、優先して確認したい項目を分かりやすく整理します。</p>
+          <ul class="hero-points">
+            <li>商談時に一緒に入力し、現状と次回提案の候補を整理します。</li>
+            <li>集客・予約導線・メニュー・リピート・Web・ホットペッパービューティー掲載内容を確認します。</li>
+            <li>小規模サロンでも無理なく取り組める優先順位を見つけます。</li>
+            <li>無料診断ではなく、ヒアリングを補助する営業支援シートです。</li>
+          </ul>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#formArea">入力をはじめる</a>
           </div>
         </div>
         <div class="hero-side">
           <div class="note">
-            お客様が単独で使う無料診断ではなく、商談時に一緒に状況を確認するための整理メモとしてご利用ください。入力内容は外部送信されず、ブラウザ内だけで処理されます。
+            お客様が単独で使う無料診断ではなく、ウィルネクスト側が商談時に画面を開き、お客様と一緒に状況を確認するための整理メモとしてご利用ください。入力内容は外部送信されず、ブラウザ内だけで処理されます。
           </div>
         </div>
       </div>
@@ -641,6 +682,14 @@
               <label for="staff">スタッフ数 <span class="optional">任意</span></label>
               <input id="staff" name="staff" type="text" inputmode="numeric" placeholder="例：2">
             </div>
+            <div class="field">
+              <label for="newCustomers">月の新規客数 <span class="optional">任意</span></label>
+              <input id="newCustomers" name="newCustomers" type="text" inputmode="numeric" placeholder="例：15">
+            </div>
+            <div class="field">
+              <label for="repeatCustomers">月のリピート客数 <span class="optional">任意</span></label>
+              <input id="repeatCustomers" name="repeatCustomers" type="text" inputmode="numeric" placeholder="例：30">
+            </div>
           </div>
         </section>
 
@@ -654,6 +703,14 @@
               <label for="channels">主な集客媒体 <span class="optional">任意</span></label>
               <input id="channels" name="channels" type="text" placeholder="例：ホットペッパー、Instagram、Googleマップ、紹介、チラシなど">
               <div class="hint">複数ある場合は、文章や読点でそのまま入力できます。</div>
+            </div>
+            <div class="field">
+              <label for="reservationRoutes">主な予約経路 <span class="optional">任意</span></label>
+              <input id="reservationRoutes" name="reservationRoutes" type="text" placeholder="例：ホットペッパー、電話、LINE、Instagram、Google、ホームページなど">
+            </div>
+            <div class="field">
+              <label for="adCost">現在の広告費 <span class="optional">任意</span></label>
+              <input id="adCost" name="adCost" type="text" inputmode="numeric" placeholder="例：5万円、30,000円">
             </div>
           </div>
         </section>
@@ -682,6 +739,33 @@
             <div class="field">
               <label for="goal">目標 <span class="optional">任意</span></label>
               <input id="goal" name="goal" type="text" placeholder="例：月商100万円を安定させたい">
+            </div>
+            <div class="field">
+              <label for="mainMenu">一番売りたいメニュー <span class="optional">任意</span></label>
+              <input id="mainMenu" name="mainMenu" type="text" placeholder="例：定額デザイン、まつげパーマ、眉WAX">
+            </div>
+            <div class="field">
+              <label for="profitMenu">一番利益を残したいメニュー <span class="optional">任意</span></label>
+              <input id="profitMenu" name="profitMenu" type="text" placeholder="例：セットメニュー、高単価デザイン">
+            </div>
+            <div class="field field-full">
+              <label for="googleReviews">Google口コミの状況 <span class="optional">任意</span></label>
+              <select id="googleReviews" name="googleReviews">
+                <option value="">選択してください</option>
+                <option value="定期的に増えている">定期的に増えている</option>
+                <option value="少しある">少しある</option>
+                <option value="あまり増えていない">あまり増えていない</option>
+                <option value="まだ対策していない">まだ対策していない</option>
+                <option value="分からない">分からない</option>
+              </select>
+            </div>
+            <div class="field field-full">
+              <label for="listingIssue">ホームページ・ホットペッパービューティーの掲載内容で困っていること <span class="optional">任意</span></label>
+              <textarea id="listingIssue" name="listingIssue" placeholder="例：メニューの見せ方、クーポン設計、写真、口コミ、予約導線、サロンの強みの伝え方など"></textarea>
+            </div>
+            <div class="field field-full">
+              <label for="customerQuestions">お客様からよく聞かれる不安や質問 <span class="optional">任意</span></label>
+              <textarea id="customerQuestions" name="customerQuestions" placeholder="例：料金、持ち、施術時間、デザイン相談、初回来店時の流れ、駐車場、支払い方法など"></textarea>
             </div>
             <div class="field field-full">
               <label for="memo">現在の課題・相談したいこと <span class="optional">任意</span></label>
@@ -715,8 +799,18 @@
           </article>
 
           <article class="result-card wide">
+            <h3>比較的整っている項目</h3>
+            <ol class="priority-list" id="strengthList"></ol>
+          </article>
+
+          <article class="result-card wide">
             <h3>優先して整理したい課題3つ</h3>
             <ol class="priority-list" id="priorityList"></ol>
+          </article>
+
+          <article class="result-card">
+            <h3>商談時に深掘りしたい質問</h3>
+            <ul class="clean-list" id="questionList"></ul>
           </article>
 
           <article class="result-card">
@@ -727,6 +821,11 @@
           <article class="result-card">
             <h3>後回しでもよい可能性があること</h3>
             <ul class="clean-list" id="laterList"></ul>
+          </article>
+
+          <article class="result-card">
+            <h3>次回提案につながる候補</h3>
+            <ul class="clean-list" id="proposalList"></ul>
           </article>
 
           <article class="result-card wide">
@@ -796,6 +895,7 @@
       "初回相談での課題整理",
       "サロン診断レポートの作成",
       "ホームページ・予約導線の改善",
+      "ホットペッパービューティー掲載内容の整理",
       "InstagramやGoogleマップの活用相談",
       "メニュー構成や打ち出し方の整理",
       "無理なく続けられる改善計画の作成",
@@ -806,9 +906,12 @@
     const resultArea = document.getElementById("resultArea");
     const summaryText = document.getElementById("summaryText");
     const scoreGrid = document.getElementById("scoreGrid");
+    const strengthList = document.getElementById("strengthList");
     const priorityList = document.getElementById("priorityList");
+    const questionList = document.getElementById("questionList");
     const checkList = document.getElementById("checkList");
     const laterList = document.getElementById("laterList");
+    const proposalList = document.getElementById("proposalList");
     const supportList = document.getElementById("supportList");
     const copyButton = document.getElementById("copyButton");
     const editButton = document.getElementById("editButton");
@@ -863,9 +966,18 @@
         monthlySalesRaw: document.getElementById("monthlySales").value.trim(),
         seatsRaw: document.getElementById("seats").value.trim(),
         staffRaw: document.getElementById("staff").value.trim(),
+        newCustomersRaw: document.getElementById("newCustomers").value.trim(),
+        repeatCustomersRaw: document.getElementById("repeatCustomers").value.trim(),
         channels: document.getElementById("channels").value.trim(),
+        reservationRoutes: document.getElementById("reservationRoutes").value.trim(),
+        adCostRaw: document.getElementById("adCost").value.trim(),
         mainConcern: document.getElementById("mainConcern").value,
         goal: document.getElementById("goal").value.trim(),
+        mainMenu: document.getElementById("mainMenu").value.trim(),
+        profitMenu: document.getElementById("profitMenu").value.trim(),
+        googleReviews: document.getElementById("googleReviews").value,
+        listingIssue: document.getElementById("listingIssue").value.trim(),
+        customerQuestions: document.getElementById("customerQuestions").value.trim(),
         memo: document.getElementById("memo").value.trim()
       };
     }
@@ -878,10 +990,14 @@
       }, {});
 
       const channels = normalizeText(data.channels);
+      const reservationRoutes = normalizeText(data.reservationRoutes);
       const averageSpend = parseNumber(data.averageSpendRaw);
       const monthlySales = parseNumber(data.monthlySalesRaw);
       const seats = parseNumber(data.seatsRaw);
       const staff = parseNumber(data.staffRaw);
+      const newCustomers = parseNumber(data.newCustomersRaw);
+      const repeatCustomers = parseNumber(data.repeatCustomersRaw);
+      const adCost = parseNumber(data.adCostRaw);
 
       if (/ホットペッパー|hotpepper|hpb/.test(channels)) {
         addScore(scores, "集客", 20);
@@ -904,6 +1020,56 @@
       }
       if (/チラシ|看板/.test(channels)) {
         addScore(scores, "集客", 10);
+      }
+
+      if (newCustomers !== null && newCustomers > 0) {
+        if (newCustomers >= 20) {
+          addScore(scores, "集客", 20);
+        } else if (newCustomers >= 10) {
+          addScore(scores, "集客", 10);
+        } else {
+          addScore(scores, "集客", 5);
+        }
+      }
+
+      if (repeatCustomers !== null && repeatCustomers > 0) {
+        if (repeatCustomers >= 30) {
+          addScore(scores, "リピート", 20);
+        } else if (repeatCustomers >= 15) {
+          addScore(scores, "リピート", 10);
+        } else {
+          addScore(scores, "リピート", 5);
+        }
+      }
+
+      if (/line|ライン/.test(reservationRoutes)) {
+        addScore(scores, "Web導線", 10);
+        addScore(scores, "リピート", 10);
+      }
+      if (/instagram|インスタ|insta/.test(reservationRoutes)) {
+        addScore(scores, "SNS", 10);
+        addScore(scores, "Web導線", 10);
+      }
+      if (/google|グーグル|googleマップ/.test(reservationRoutes)) {
+        addScore(scores, "Google対策", 10);
+        addScore(scores, "Web導線", 10);
+      }
+      if (/ホームページ|webサイト|ウェブサイト|サイト/.test(reservationRoutes) || /(^|[^a-z])hp([^a-z]|$)/.test(reservationRoutes)) {
+        addScore(scores, "Web導線", 20);
+      }
+      if (/ホットペッパー|hotpepper|hpb/.test(reservationRoutes)) {
+        addScore(scores, "集客", 10);
+        addScore(scores, "Web導線", 5);
+      }
+      if (/電話/.test(reservationRoutes)) {
+        addScore(scores, "運営体制", 5);
+      }
+
+      if (adCost !== null && adCost > 0) {
+        addScore(scores, "集客", 5);
+        if (adCost >= 50000) {
+          addScore(scores, "集客", 10);
+        }
       }
 
       if (averageSpend !== null) {
@@ -959,6 +1125,33 @@
         }
       }
 
+      if (data.mainMenu) {
+        addScore(scores, "メニュー設計", 10);
+        addScore(scores, "客単価", 5);
+      }
+      if (data.profitMenu) {
+        addScore(scores, "メニュー設計", 15);
+        addScore(scores, "客単価", 10);
+      }
+
+      if (data.googleReviews === "定期的に増えている") {
+        addScore(scores, "Google対策", 30);
+      } else if (data.googleReviews === "少しある") {
+        addScore(scores, "Google対策", 15);
+      } else if (data.googleReviews === "あまり増えていない") {
+        addScore(scores, "Google対策", 5);
+      }
+
+      if (data.listingIssue) {
+        addScore(scores, "Web導線", 5);
+        addScore(scores, "メニュー設計", 5);
+      }
+
+      if (data.customerQuestions) {
+        addScore(scores, "Web導線", 10);
+        addScore(scores, "メニュー設計", 10);
+      }
+
       const concernCategories = concernPriority[data.mainConcern] || [];
       concernCategories.forEach(function(category) {
         const penalty = data.mainConcern === "新規集客" || data.mainConcern === "予約導線" ? 15 : 12;
@@ -993,13 +1186,30 @@
         .slice(0, 3);
     }
 
+    function getStrengthCategories(scores) {
+      return categories
+        .map(function(category, index) {
+          return {
+            name: category,
+            score: scores[category],
+            originalIndex: index
+          };
+        })
+        .sort(function(a, b) {
+          if (a.score !== b.score) return b.score - a.score;
+          return a.originalIndex - b.originalIndex;
+        })
+        .slice(0, 2);
+    }
+
     function createSummary(data, priorities) {
       const names = priorities.map(function(item) { return "「" + item.name + "」"; }).join("や");
       const salon = data.salonName ? data.salonName + "様" : "今回のサロン様";
       const concern = data.mainConcern ? "現在のお悩みとして「" + data.mainConcern + "」が挙がっているため、" : "";
-      const memoNote = data.memo ? "ご相談内容も踏まえると、" : "";
+      const memoNote = data.memo || data.listingIssue || data.customerQuestions ? "ご相談内容や掲載面の気になる点も踏まえると、" : "";
+      const listingNote = data.listingIssue ? "ホームページ・ホットペッパービューティーの掲載内容についても、料金・メニュー・クーポン・写真・口コミ・予約導線が分かりやすいか確認するとよさそうです。" : "";
 
-      return salon + "の入力内容から見ると、" + memoNote + "現時点では" + names + "を優先的に見直す候補として考えられます。" + concern + "商談時には、初めてのお客様がサロンを知ってから予約・再来店につながるまでの流れを一緒に確認するとよさそうです。空欄の項目がある場合は、情報不足として低めに残しているため、まずは商談時に一緒に確認したい項目として整理しておくと安心です。";
+      return salon + "の入力内容から見ると、" + memoNote + "現時点では" + names + "を優先的に見直す候補として考えられます。" + concern + "商談時には、初めてのお客様がサロンを知ってから予約・再来店につながるまでの流れを一緒に確認するとよさそうです。" + listingNote + "空欄の項目がある場合は、情報不足として低めに残しているため、まずは商談時に一緒に確認したい項目として整理しておくと安心です。";
     }
 
     function getCheckItems(priorities) {
@@ -1018,11 +1228,14 @@
         ],
         "メニュー設計": [
           "人気メニューと利益を残したいメニューを分けて確認する",
-          "初めてのお客様がメニュー選びで迷いにくい状態か整理する"
+          "初めてのお客様がメニュー選びで迷いにくい状態か整理する",
+          "ホットペッパービューティーのクーポン・写真・口コミ・メニュー表示を確認する"
         ],
         "Web導線": [
           "Instagramや検索から予約までの流れを確認する",
-          "初めてのお客様が、料金・メニュー・雰囲気を迷わず確認できる状態か整理する"
+          "初めてのお客様が、料金・メニュー・雰囲気を迷わず確認できる状態か整理する",
+          "ホットペッパービューティーのクーポン・写真・口コミ・メニュー表示を確認する",
+          "お客様からよく聞かれる不安を、ホームページや予約ページに反映できるか確認する"
         ],
         "SNS": [
           "Instagramでサロンの雰囲気やメニューの魅力が伝わっているか確認する",
@@ -1055,6 +1268,57 @@
       return items.slice(0, 5);
     }
 
+    function getDeepDiveQuestions(priorities, data) {
+      const map = {
+        "集客": [
+          "現在の新規客は、どの媒体からの来店が多いですか？",
+          "主な集客媒体ごとに、どのような役割を持たせていますか？"
+        ],
+        "リピート": [
+          "次回予約や再来店につながる声かけは決まっていますか？",
+          "再来店につながりやすいメニューやタイミングは見えていますか？"
+        ],
+        "客単価": [
+          "一番売りたいメニューは、予約ページやSNS上で目立っていますか？",
+          "価格だけでなく、内容や価値が伝わる見せ方になっていますか？"
+        ],
+        "メニュー設計": [
+          "人気メニューと利益を残したいメニューは分けて考えられていますか？",
+          "ホットペッパービューティーのクーポンは、価格だけでなく価値が伝わる内容になっていますか？"
+        ],
+        "Web導線": [
+          "予約までの流れで、お客様が迷いやすい部分はありますか？",
+          "お客様からよく聞かれる不安は、ホームページや予約ページに反映されていますか？"
+        ],
+        "SNS": [
+          "Instagramのプロフィールから予約までの流れは分かりやすいですか？",
+          "投稿内容で、サロンの雰囲気や売りたいメニューは伝わっていますか？"
+        ],
+        "Google対策": [
+          "Googleマップ上の写真・口コミ・営業時間は最新ですか？",
+          "口コミを増やすための声かけや導線は決まっていますか？"
+        ],
+        "運営体制": [
+          "席数・スタッフ数に対して、予約枠に無理は出ていませんか？",
+          "電話・LINE・予約サイトなどの対応ルールは整理されていますか？"
+        ]
+      };
+
+      const items = [];
+      priorities.forEach(function(priority) {
+        (map[priority.name] || []).forEach(function(item) {
+          if (!items.includes(item)) items.push(item);
+        });
+      });
+      if (data.listingIssue && !items.includes("ホットペッパービューティー上で、売りたいメニューや強みは伝わっていますか？")) {
+        items.unshift("ホットペッパービューティー上で、売りたいメニューや強みは伝わっていますか？");
+      }
+      if (data.customerQuestions && !items.includes("お客様からよく聞かれる不安は、ホームページや予約ページに反映されていますか？")) {
+        items.unshift("お客様からよく聞かれる不安は、ホームページや予約ページに反映されていますか？");
+      }
+      return items.slice(0, 5);
+    }
+
     function getLaterItems(priorities) {
       const lowNames = priorities.map(function(item) { return item.name; });
       const base = [
@@ -1063,7 +1327,8 @@
         "毎日投稿を前提にしたSNS運用",
         "大規模なホームページリニューアル",
         "すべての媒体を一気に始めること",
-        "細かすぎる分析ツールの導入"
+        "細かすぎる分析ツールの導入",
+        "目的が曖昧なままクーポン数だけを増やすこと"
       ];
 
       if (lowNames.includes("SNS")) {
@@ -1087,16 +1352,46 @@
       return base.slice(0, 4);
     }
 
+    function getProposalItems(priorities, data) {
+      const map = {
+        "集客": ["サロン診断レポート", "商談内容をもとにした改善優先順位の整理"],
+        "リピート": ["リピート導線の整理", "商談内容をもとにした改善優先順位の整理"],
+        "客単価": ["メニュー構成・単価設計の見直し", "クーポン・メニュー構成の見直し"],
+        "メニュー設計": ["クーポン・メニュー構成の見直し", "メニュー構成・単価設計の見直し"],
+        "Web導線": ["ホームページ・予約導線改善", "ホットペッパービューティー掲載内容の整理"],
+        "SNS": ["Instagramプロフィール・投稿導線改善", "ホームページ・予約導線改善"],
+        "Google対策": ["Googleビジネスプロフィール整理", "サロン診断レポート"],
+        "運営体制": ["商談内容をもとにした改善優先順位の整理", "リピート導線の整理"]
+      };
+      const items = [];
+      priorities.forEach(function(priority) {
+        (map[priority.name] || []).forEach(function(item) {
+          if (!items.includes(item)) items.push(item);
+        });
+      });
+      if (data.listingIssue && !items.includes("ホットペッパービューティー掲載内容の整理")) {
+        items.unshift("ホットペッパービューティー掲載内容の整理");
+      }
+      if (!items.includes("サロン診断レポート")) {
+        items.push("サロン診断レポート");
+      }
+      return items.slice(0, 5);
+    }
+
     function buildResult(data) {
       const scores = calculateScores(data);
       const priorities = getPriorityCategories(scores, data.mainConcern);
+      const strengths = getStrengthCategories(scores);
       return {
         data: data,
         scores: scores,
+        strengths: strengths,
         priorities: priorities,
         summary: createSummary(data, priorities),
+        questions: getDeepDiveQuestions(priorities, data),
         checks: getCheckItems(priorities),
-        later: getLaterItems(priorities)
+        later: getLaterItems(priorities),
+        proposals: getProposalItems(priorities, data)
       };
     }
 
@@ -1107,11 +1402,11 @@
       return "商談時に確認したい項目";
     }
 
-    function renderList(element, items) {
+    function renderList(element, items, prefix) {
       element.innerHTML = "";
       items.forEach(function(item) {
         const li = document.createElement("li");
-        li.textContent = item;
+        li.textContent = prefix ? prefix + item : item;
         element.appendChild(li);
       });
     }
@@ -1141,6 +1436,19 @@
         scoreGrid.appendChild(card);
       });
 
+      strengthList.innerHTML = "";
+      result.strengths.forEach(function(strength, index) {
+        const li = document.createElement("li");
+        li.className = "priority-card is-good";
+        li.innerHTML =
+          '<div class="priority-title"><span class="priority-number"></span><span></span></div>' +
+          '<div></div>';
+        li.querySelector(".priority-number").textContent = index + 1;
+        li.querySelector(".priority-title span:last-child").textContent = strength.name + "（" + strength.score + "点）";
+        li.querySelector("div:last-child").textContent = "入力内容から見ると、現時点では比較的整っている項目として考えられます。商談時には、この強みをどのように活かすか確認するとよさそうです。";
+        strengthList.appendChild(li);
+      });
+
       priorityList.innerHTML = "";
       result.priorities.forEach(function(priority, index) {
         const li = document.createElement("li");
@@ -1154,10 +1462,12 @@
         priorityList.appendChild(li);
       });
 
+      renderList(questionList, result.questions);
       renderList(checkList, result.checks);
       renderList(laterList, result.later.map(function(item) {
         return item + "は、現時点では後回しでもよい可能性があります。";
       }));
+      renderList(proposalList, result.proposals);
       renderList(supportList, supportItems);
 
       copyMessage.classList.remove("is-visible");
@@ -1193,13 +1503,22 @@
       lines.push("月商：" + toDisplay(data.monthlySalesRaw));
       lines.push("席数：" + toDisplay(data.seatsRaw));
       lines.push("スタッフ数：" + toDisplay(data.staffRaw));
+      lines.push("月の新規客数：" + toDisplay(data.newCustomersRaw));
+      lines.push("月のリピート客数：" + toDisplay(data.repeatCustomersRaw));
       lines.push("主な集客媒体：" + toDisplay(data.channels));
+      lines.push("主な予約経路：" + toDisplay(data.reservationRoutes));
+      lines.push("現在の広告費：" + toDisplay(data.adCostRaw));
       lines.push("");
       lines.push("━━━━━━━━━━━━━━");
       lines.push("■ 現在のお悩み・目標");
       lines.push("━━━━━━━━━━━━━━");
       lines.push("一番のお悩み：" + toDisplay(data.mainConcern));
       lines.push("目標：" + toDisplay(data.goal));
+      lines.push("一番売りたいメニュー：" + toDisplay(data.mainMenu));
+      lines.push("一番利益を残したいメニュー：" + toDisplay(data.profitMenu));
+      lines.push("Google口コミの状況：" + toDisplay(data.googleReviews));
+      lines.push("ホームページ・ホットペッパービューティーの掲載内容で困っていること：" + toDisplay(data.listingIssue));
+      lines.push("お客様からよく聞かれる不安や質問：" + toDisplay(data.customerQuestions));
       lines.push("現在の課題・相談内容：" + toDisplay(data.memo));
       lines.push("");
       lines.push("━━━━━━━━━━━━━━");
@@ -1214,10 +1533,24 @@
       lines.push("※このスコアは、入力内容をもとにした簡易整理です。");
       lines.push("");
       lines.push("━━━━━━━━━━━━━━");
+      lines.push("■ 比較的整っている項目");
+      lines.push("━━━━━━━━━━━━━━");
+      result.strengths.forEach(function(strength, index) {
+        lines.push((index + 1) + ". " + strength.name + "：" + strength.score + "点");
+      });
+      lines.push("");
+      lines.push("━━━━━━━━━━━━━━");
       lines.push("■ 優先して整理したい課題");
       lines.push("━━━━━━━━━━━━━━");
       result.priorities.forEach(function(priority, index) {
         lines.push((index + 1) + ". " + priority.name + "：" + categoryDescriptions[priority.name]);
+      });
+      lines.push("");
+      lines.push("━━━━━━━━━━━━━━");
+      lines.push("■ 商談時に深掘りしたい質問");
+      lines.push("━━━━━━━━━━━━━━");
+      result.questions.forEach(function(item) {
+        lines.push("・" + item);
       });
       lines.push("");
       lines.push("━━━━━━━━━━━━━━");
@@ -1232,6 +1565,13 @@
       lines.push("━━━━━━━━━━━━━━");
       result.later.forEach(function(item) {
         lines.push("・" + item + "は、現時点では後回しでもよい可能性があります。");
+      });
+      lines.push("");
+      lines.push("━━━━━━━━━━━━━━");
+      lines.push("■ 次回ご提案できる候補");
+      lines.push("━━━━━━━━━━━━━━");
+      result.proposals.forEach(function(item) {
+        lines.push("・" + item);
       });
       lines.push("");
       lines.push("━━━━━━━━━━━━━━");
