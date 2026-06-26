@@ -3,1645 +3,564 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>サロンのお悩み整理シート</title>
+  <title>美容サロン向け 経営・集客 詳細診断 | ウィルネクスト合同会社</title>
   <style>
-    /* 商談時に画面共有しても読みやすい、落ち着いたサロン向け配色です。 */
     :root {
       --navy: #14263d;
-      --navy-soft: #213a58;
-      --gold: #c7a760;
-      --gold-soft: #efe4c8;
-      --beige: #f7f2e9;
-      --beige-strong: #eee3d1;
-      --greige: #837b70;
+      --navy-soft: #243d5a;
+      --gold: #b69248;
+      --gold-pale: #f2e8d2;
+      --beige: #f7f3ec;
+      --greige: #7c7469;
       --ink: #27313d;
-      --muted: #65707d;
-      --line: #ded6c9;
+      --muted: #66707b;
+      --line: #ded7ca;
       --white: #ffffff;
-      --danger-soft: #f7ebe3;
-      --shadow: 0 16px 38px rgba(20, 38, 61, 0.10);
+      --alert: #a94736;
+      --alert-bg: #fbefeb;
+      --success: #2f6b59;
+      --success-bg: #eaf4ef;
+      --shadow: 0 14px 32px rgba(20, 38, 61, .09);
       --radius: 8px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      background: var(--beige);
       color: var(--ink);
-      background: linear-gradient(180deg, var(--beige) 0%, #fff 34%, var(--beige) 100%);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", "YuGothic", Meiryo, sans-serif;
       font-size: 16px;
-      line-height: 1.8;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .page {
-      min-height: 100vh;
-    }
-
-    .wrap {
-      width: min(1080px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .hero {
-      padding: 44px 0 30px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
-      align-items: center;
-    }
-
-    .brand-mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--navy);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
-    .brand-mark::before {
-      content: "";
-      width: 30px;
-      height: 2px;
-      background: var(--gold);
-      display: inline-block;
-    }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    h1 {
-      margin-bottom: 14px;
-      color: var(--navy);
-      font-size: clamp(2rem, 8vw, 4.35rem);
-      line-height: 1.12;
-      letter-spacing: 0;
-    }
-
-    .hero-copy {
-      margin-bottom: 16px;
-      color: var(--navy-soft);
-      font-size: clamp(1.12rem, 4.8vw, 1.72rem);
-      font-weight: 700;
-      line-height: 1.55;
-    }
-
-    .hero-text {
-      max-width: 790px;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .hero-points {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin: 22px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .hero-points li {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--navy-soft);
-      font-size: 0.93rem;
-      font-weight: 700;
-      line-height: 1.55;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
-    }
-
-    .note {
-      border: 1px solid var(--line);
-      border-left: 5px solid var(--gold);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .panel,
-    .result-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: var(--shadow);
-    }
-
-    .panel {
-      margin: 24px 0;
-      padding: 20px;
-    }
-
-    .section-head {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-kicker {
-      color: var(--gold);
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-
-    h2 {
-      margin-bottom: 0;
-      color: var(--navy);
-      font-size: clamp(1.32rem, 5vw, 2rem);
-      line-height: 1.35;
-      letter-spacing: 0;
-    }
-
-    h3 {
-      margin-bottom: 10px;
-      color: var(--navy);
-      font-size: 1.06rem;
-      line-height: 1.45;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    label {
-      color: var(--navy);
-      font-weight: 700;
-      line-height: 1.45;
-    }
-
-    .optional {
-      color: var(--muted);
-      font-size: 0.86rem;
-      font-weight: 500;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      border: 1px solid #cfc6b8;
-      border-radius: var(--radius);
-      padding: 13px 14px;
-      color: var(--ink);
-      background: var(--white);
-      outline: none;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 4px rgba(199, 167, 96, 0.24);
-      background: #fffdf9;
-    }
-
-    textarea {
-      min-height: 160px;
-      resize: vertical;
-    }
-
-    .hint {
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.55;
-    }
-
-    .btn {
-      display: inline-flex;
-      min-height: 48px;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      border: 1px solid transparent;
-      border-radius: var(--radius);
-      padding: 12px 18px;
-      cursor: pointer;
-      font-weight: 800;
-      line-height: 1.3;
-      text-align: center;
-      text-decoration: none;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn:focus-visible {
-      outline: 4px solid rgba(199, 167, 96, 0.32);
-      outline-offset: 2px;
-    }
-
-    .btn-primary {
-      background: var(--navy);
-      color: var(--white);
-      box-shadow: 0 14px 26px rgba(20, 38, 61, 0.18);
-    }
-
-    .btn-primary:hover {
-      background: #0f1e31;
-    }
-
-    .btn-gold {
-      background: var(--gold);
-      color: #15120a;
-      box-shadow: 0 14px 26px rgba(142, 111, 45, 0.22);
-    }
-
-    .btn-gold:hover {
-      background: #b99548;
-    }
-
-    .btn-secondary {
-      border-color: var(--line);
-      background: var(--white);
-      color: var(--navy);
-    }
-
-    .btn-light {
-      border-color: var(--line);
-      background: #fbf8f2;
-      color: var(--navy);
-    }
-
-    .form-actions,
-    .result-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .result {
-      display: none;
-      padding: 12px 0 46px;
-    }
-
-    .result.is-visible {
-      display: block;
-    }
-
-    .result-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    .result-card {
-      padding: 18px;
-    }
-
-    .summary-text {
-      margin-bottom: 0;
-      color: var(--ink);
-    }
-
-    .score-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .score-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 14px;
-      background: #fff;
-    }
-
-    .score-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 9px;
-    }
-
-    .score-name {
-      color: var(--navy);
-      font-weight: 800;
-    }
-
-    .score-value {
-      color: var(--navy);
-      font-size: 1.1rem;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .score-bar {
-      height: 10px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: #ede6da;
-    }
-
-    .score-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: 999px;
-      background: var(--gold);
-      transition: width 0.35s ease;
-    }
-
-    .score-status {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
-    }
-
-    .score-item.is-priority {
-      border-color: #d5bb7b;
-      background: #fffaf0;
-    }
-
-    .score-item.is-priority .score-status {
-      color: #795d1f;
-      font-weight: 700;
-    }
-
-    .priority-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .priority-card {
-      border: 1px solid #d9c38d;
-      border-radius: var(--radius);
-      padding: 15px;
-      background: #fff9ed;
-    }
-
-    .priority-card.is-good {
-      border-color: #cfd7df;
-      background: #f8fbfc;
-    }
-
-    .priority-card.is-good .priority-number {
-      background: var(--gold);
-      color: #16120a;
-    }
-
-    .priority-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-      color: var(--navy);
-      font-weight: 900;
-    }
-
-    .priority-number {
-      display: inline-flex;
-      width: 28px;
-      height: 28px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      background: var(--navy);
-      color: #fff;
-      font-size: 0.9rem;
-      line-height: 1;
-      flex: 0 0 auto;
-    }
-
-    .clean-list {
-      margin: 0;
-      padding-left: 1.2em;
-    }
-
-    .clean-list li {
-      margin: 0 0 8px;
-    }
-
-    .support-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .support-grid li {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 12px;
-      background: #fffdf8;
-      color: var(--navy);
-      font-weight: 700;
-    }
-
-    .notice {
-      border: 1px solid var(--beige-strong);
-      border-radius: var(--radius);
-      padding: 14px;
-      background: #fbf4e8;
-      color: #5f5549;
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-
-    .copy-message {
-      display: none;
-      margin-top: 12px;
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      background: #f2ead8;
-      color: var(--navy);
-      font-weight: 800;
-    }
-
-    .copy-message.is-visible {
-      display: block;
-    }
-
-    .hidden-copy {
-      position: fixed;
-      top: -9999px;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-    }
-
-    .footer {
-      padding: 28px 0 34px;
-      color: var(--greige);
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    @media (min-width: 720px) {
-      .hero {
-        padding: 64px 0 38px;
-      }
-
-      .panel,
-      .result-card {
-        padding: 26px;
-      }
-
-      .form-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .field-full {
-        grid-column: 1 / -1;
-      }
-
-      .form-actions,
-      .result-actions {
-        flex-direction: row;
-        align-items: center;
-      }
-
-      .result-actions .btn-gold {
-        min-width: 310px;
-      }
-
-      .score-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .support-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .hero-points {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (min-width: 980px) {
-      .hero-grid {
-        grid-template-columns: 1.25fr 0.75fr;
-      }
-
-      .hero-side {
-        align-self: stretch;
-        display: flex;
-        align-items: center;
-      }
-
-      .result-layout {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .result-card.wide {
-        grid-column: 1 / -1;
-      }
-
-      .score-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
+      line-height: 1.75;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero { background: var(--navy); color: var(--white); padding: 34px 0 42px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: #f6ead1; font-weight: 700; font-size: .88rem; letter-spacing: .08em; }
+    .brand::before { content: ""; width: 28px; height: 1px; background: var(--gold); }
+    .hero-grid { display: grid; gap: 24px; }
+    h1 { margin: 16px 0 12px; font-size: clamp(1.9rem, 6vw, 3.15rem); line-height: 1.35; letter-spacing: 0; }
+    .lead { margin: 0; font-size: clamp(1rem, 2.5vw, 1.22rem); color: #f4ead8; font-weight: 600; }
+    .hero-copy { max-width: 850px; margin: 18px 0 0; color: #d9e0e6; font-size: .96rem; }
+    .notice { border-left: 3px solid var(--gold); background: rgba(255,255,255,.08); padding: 12px 14px; color: #edf0f3; font-size: .87rem; }
+
+    main { padding: 28px 0 52px; }
+    .intro-card, .result-card, .category, .support-section { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .intro-card { padding: 22px; margin-bottom: 22px; }
+    h2, h3 { color: var(--navy); letter-spacing: 0; line-height: 1.45; }
+    h2 { font-size: clamp(1.35rem, 3vw, 1.7rem); margin: 0 0 8px; }
+    h3 { font-size: 1.1rem; margin: 0; }
+    .section-note { color: var(--muted); font-size: .9rem; margin: 0; }
+    .answer-guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+    .guide-item { padding: 10px; border: 1px solid var(--line); background: #fcfaf6; font-size: .84rem; color: var(--greige); }
+    .guide-item strong { display: block; color: var(--navy); font-size: .92rem; }
+    .error-message, .copy-message { display: none; margin: 18px 0; padding: 12px 14px; border-radius: 4px; font-weight: 700; font-size: .92rem; }
+    .error-message { color: var(--alert); background: var(--alert-bg); border: 1px solid #efc8c0; }
+    .copy-message { color: var(--success); background: var(--success-bg); border: 1px solid #bedbcf; }
+    .error-message.is-visible, .copy-message.is-visible { display: block; }
+
+    .category { overflow: hidden; margin: 18px 0; }
+    .category-header { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: #faf7f0; border-bottom: 1px solid var(--line); }
+    .category-number { flex: 0 0 auto; display: grid; place-items: center; width: 30px; height: 30px; background: var(--navy); color: var(--white); border-radius: 50%; font-size: .82rem; font-weight: 800; }
+    .category-body { padding: 4px 18px 18px; }
+    .question { padding: 18px 0; border-bottom: 1px solid #e9e3da; }
+    .question:last-child { border-bottom: 0; padding-bottom: 0; }
+    .question.is-unanswered { padding-left: 10px; border-left: 3px solid var(--alert); }
+    .question-text { margin: 0 0 12px; color: var(--ink); font-weight: 700; line-height: 1.55; }
+    .question-index { color: var(--gold); margin-right: 5px; }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .choice { position: relative; display: flex; align-items: center; min-height: 48px; padding: 9px 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: .84rem; transition: .16s ease; }
+    .choice:hover { border-color: var(--gold); background: #fffcf6; }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice:has(input:checked) { color: var(--navy); border-color: var(--navy); background: #eef3f7; box-shadow: inset 0 0 0 1px var(--navy); font-weight: 700; }
+    .choice-letter { flex: 0 0 auto; display: grid; place-items: center; width: 22px; height: 22px; margin-right: 7px; border-radius: 50%; border: 1px solid currentColor; font-size: .7rem; font-weight: 800; }
+
+    .actions { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border: 1px solid transparent; border-radius: 4px; padding: 12px 20px; text-decoration: none; font-weight: 800; text-align: center; transition: .16s ease; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { background: var(--navy); color: var(--white); box-shadow: 0 8px 18px rgba(20, 38, 61, .18); }
+    .button-primary:hover { background: var(--navy-soft); }
+    .button-gold { background: var(--gold); color: #1d2731; }
+    .button-gold:hover { background: #c9a55c; }
+    .button-outline { background: var(--white); color: var(--navy); border-color: var(--navy); }
+    .button-outline:hover { background: #f1f5f8; }
+
+    #result { display: none; margin-top: 38px; }
+    #result.is-visible { display: block; }
+    .result-card { padding: 22px; margin-bottom: 20px; }
+    .result-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
+    .eyebrow { margin: 0 0 4px; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
+    .score-circle { flex: 0 0 auto; display: grid; place-items: center; width: 96px; height: 96px; border: 5px solid var(--gold); border-radius: 50%; background: #fffcf7; color: var(--navy); font-weight: 800; line-height: 1.05; text-align: center; }
+    .score-circle strong { display: block; font-size: 1.65rem; }
+    .score-circle span { font-size: .7rem; }
+    .rank-box { background: #faf7f0; border-left: 4px solid var(--gold); padding: 14px; }
+    .rank-title { color: var(--navy); font-size: 1.12rem; font-weight: 800; }
+    .rank-copy { margin: 4px 0 0; color: var(--muted); font-size: .92rem; }
+    .score-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
+    .score-row { display: grid; grid-template-columns: 116px 1fr 42px; align-items: center; gap: 9px; font-size: .88rem; }
+    .score-name { color: var(--navy); font-weight: 700; }
+    .bar { overflow: hidden; height: 10px; background: #e9e4dc; border-radius: 999px; }
+    .bar > span { display: block; height: 100%; background: var(--gold); border-radius: inherit; }
+    .score-value { text-align: right; color: var(--navy); font-weight: 800; }
+    .result-note { margin: 18px 0 0; padding: 12px 14px; background: #f6f3ed; color: var(--muted); font-size: .85rem; }
+
+    .result-columns { display: grid; gap: 20px; }
+    .priority-list, .strength-list, .support-list { list-style: none; padding: 0; margin: 16px 0 0; }
+    .priority-list { counter-reset: priority; }
+    .priority-list li { position: relative; padding: 15px 0 15px 50px; border-bottom: 1px solid var(--line); }
+    .priority-list li:last-child, .strength-list li:last-child { border-bottom: 0; }
+    .priority-list li::before { counter-increment: priority; content: counter(priority); position: absolute; top: 16px; left: 0; display: grid; place-items: center; width: 32px; height: 32px; background: var(--navy); color: var(--white); border-radius: 50%; font-size: .78rem; font-weight: 800; }
+    .item-title { display: flex; justify-content: space-between; gap: 10px; color: var(--navy); font-weight: 800; }
+    .item-score { color: var(--gold); white-space: nowrap; }
+    .item-copy { margin: 5px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    .strength-list li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .insight { margin: 0; color: var(--ink); }
+    .insight strong { color: var(--navy); }
+    .cta { background: var(--navy); color: var(--white); border-radius: var(--radius); padding: 25px 22px; box-shadow: var(--shadow); }
+    .cta h2 { color: var(--white); }
+    .cta p { color: #d9e0e6; margin: 10px 0 0; font-size: .92rem; }
+    .cta .button { margin-top: 18px; width: 100%; }
+    .support-section { padding: 22px; margin-top: 20px; }
+    .support-list { display: grid; gap: 8px; }
+    .support-list li { position: relative; padding-left: 20px; color: var(--ink); font-size: .9rem; }
+    .support-list li::before { content: ""; position: absolute; top: .72em; left: 2px; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+    .result-actions { display: grid; gap: 10px; margin-top: 20px; }
+    .footer { padding: 22px 0 32px; color: var(--greige); text-align: center; font-size: .8rem; }
+
+    @media (min-width: 680px) {
+      .hero { padding: 54px 0 62px; }
+      main { padding-top: 36px; }
+      .intro-card, .result-card, .support-section { padding: 30px; }
+      .category-header { padding: 18px 24px; }
+      .category-body { padding: 6px 24px 24px; }
+      .answer-guide { grid-template-columns: repeat(4, 1fr); }
+      .choices { grid-template-columns: repeat(4, 1fr); }
+      .choice { min-height: 54px; }
+      .actions { flex-direction: row; justify-content: center; }
+      .actions .button { min-width: 260px; }
+      .score-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+      .result-columns { grid-template-columns: 1.2fr .8fr; }
+      .result-actions { grid-template-columns: 1fr 1fr; }
+      .cta { padding: 34px; }
+      .cta .button { width: auto; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="hero" id="top">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="brand-mark">Willnext meeting tool</div>
-          <h1>サロンのお悩み整理シート</h1>
-          <p class="hero-copy">集客・売上・予約導線・メニューの見せ方を一緒に整理し、今確認したい課題を見える化します。</p>
-          <p class="hero-text">このシートは、正確な経営診断ではなく、商談時に現在の状況を整理するためのヒアリング補助ツールです。入力内容をもとに、優先して確認したい項目を分かりやすく整理します。</p>
-          <ul class="hero-points">
-            <li>商談時に一緒に入力し、現状と次回提案の候補を整理します。</li>
-            <li>集客・予約導線・メニュー・リピート・Web・ホットペッパービューティー掲載内容を確認します。</li>
-            <li>小規模サロンでも無理なく取り組める優先順位を見つけます。</li>
-            <li>無料診断ではなく、ヒアリングを補助する営業支援シートです。</li>
-          </ul>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#formArea">入力をはじめる</a>
-          </div>
-        </div>
-        <div class="hero-side">
-          <div class="note">
-            お客様が単独で使う無料診断ではなく、ウィルネクスト側が商談時に画面を開き、お客様と一緒に状況を確認するための整理メモとしてご利用ください。入力内容は外部送信されず、ブラウザ内だけで処理されます。
-          </div>
-        </div>
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="brand">WILL NEXT LLC.</div>
+      <div>
+        <h1>美容サロン向け<br>経営・集客 詳細診断</h1>
+        <p class="lead">集客・リピート・客単価・予約導線・メニュー設計を、選択式で詳しく確認できます。</p>
+        <p class="hero-copy">この詳細診断は、美容サロンの経営・集客状況を選択式で整理し、優先して確認したい課題を見える化するための簡易診断です。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
       </div>
-    </header>
+      <p class="notice">本診断は、正確な経営診断や成果保証ではありません。現在の状況を整理し、優先して確認したい領域を見つけるための目安としてご利用ください。</p>
+      <a class="button button-gold" href="#diagnosis">診断をはじめる</a>
+    </div>
+  </header>
 
-    <main class="wrap">
-      <form id="salonForm" novalidate>
-        <section class="panel" id="formArea" aria-labelledby="basicHeading">
-          <div class="section-head">
-            <span class="section-kicker">01 / BASIC</span>
-            <h2 id="basicHeading">店舗の基本情報</h2>
-          </div>
-          <div class="form-grid">
-            <div class="field">
-              <label for="salonName">店舗名 <span class="optional">任意</span></label>
-              <input id="salonName" name="salonName" type="text" placeholder="例：〇〇ネイルサロン">
-            </div>
-            <div class="field">
-              <label for="area">エリア <span class="optional">任意</span></label>
-              <input id="area" name="area" type="text" placeholder="例：千葉県鎌ケ谷市、松戸市五香">
-            </div>
-            <div class="field">
-              <label for="businessType">業種 <span class="optional">推奨</span></label>
-              <select id="businessType" name="businessType">
-                <option value="">選択してください</option>
-                <option value="ネイルサロン">ネイルサロン</option>
-                <option value="アイラッシュサロン">アイラッシュサロン</option>
-                <option value="エステサロン">エステサロン</option>
-                <option value="美容室">美容室</option>
-                <option value="その他">その他</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="yearsOpen">開業年数 <span class="optional">推奨</span></label>
-              <select id="yearsOpen" name="yearsOpen">
-                <option value="">選択してください</option>
-                <option value="開業前">開業前</option>
-                <option value="1年未満">1年未満</option>
-                <option value="1〜3年">1〜3年</option>
-                <option value="3年以上">3年以上</option>
-              </select>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="salesHeading">
-          <div class="section-head">
-            <span class="section-kicker">02 / OPERATION</span>
-            <h2 id="salesHeading">売上・運営状況</h2>
-          </div>
-          <div class="form-grid">
-            <div class="field">
-              <label for="averageSpend">客単価 <span class="optional">任意</span></label>
-              <input id="averageSpend" name="averageSpend" type="text" inputmode="numeric" placeholder="例：8,000円">
-              <div class="hint">カンマや「円」が入っていても整理できます。</div>
-            </div>
-            <div class="field">
-              <label for="monthlySales">月商 <span class="optional">任意</span></label>
-              <input id="monthlySales" name="monthlySales" type="text" inputmode="numeric" placeholder="例：100万円、800,000円">
-              <div class="hint">「100万円」のような入力にも対応します。</div>
-            </div>
-            <div class="field">
-              <label for="seats">席数 <span class="optional">任意</span></label>
-              <input id="seats" name="seats" type="text" inputmode="numeric" placeholder="例：2">
-            </div>
-            <div class="field">
-              <label for="staff">スタッフ数 <span class="optional">任意</span></label>
-              <input id="staff" name="staff" type="text" inputmode="numeric" placeholder="例：2">
-            </div>
-            <div class="field">
-              <label for="newCustomers">月の新規客数 <span class="optional">任意</span></label>
-              <input id="newCustomers" name="newCustomers" type="text" inputmode="numeric" placeholder="例：15">
-            </div>
-            <div class="field">
-              <label for="repeatCustomers">月のリピート客数 <span class="optional">任意</span></label>
-              <input id="repeatCustomers" name="repeatCustomers" type="text" inputmode="numeric" placeholder="例：30">
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="marketingHeading">
-          <div class="section-head">
-            <span class="section-kicker">03 / MARKETING</span>
-            <h2 id="marketingHeading">集客状況</h2>
-          </div>
-          <div class="form-grid">
-            <div class="field field-full">
-              <label for="channels">主な集客媒体 <span class="optional">任意</span></label>
-              <input id="channels" name="channels" type="text" placeholder="例：ホットペッパー、Instagram、Googleマップ、紹介、チラシなど">
-              <div class="hint">複数ある場合は、文章や読点でそのまま入力できます。</div>
-            </div>
-            <div class="field">
-              <label for="reservationRoutes">主な予約経路 <span class="optional">任意</span></label>
-              <input id="reservationRoutes" name="reservationRoutes" type="text" placeholder="例：ホットペッパー、電話、LINE、Instagram、Google、ホームページなど">
-            </div>
-            <div class="field">
-              <label for="adCost">現在の広告費 <span class="optional">任意</span></label>
-              <input id="adCost" name="adCost" type="text" inputmode="numeric" placeholder="例：5万円、30,000円">
-            </div>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="worryHeading">
-          <div class="section-head">
-            <span class="section-kicker">04 / GOAL</span>
-            <h2 id="worryHeading">現在のお悩み・目標</h2>
-          </div>
-          <div class="form-grid">
-            <div class="field">
-              <label for="mainConcern">現在の一番の悩み <span class="optional">推奨</span></label>
-              <select id="mainConcern" name="mainConcern">
-                <option value="">選択してください</option>
-                <option value="新規集客">新規集客</option>
-                <option value="リピート">リピート</option>
-                <option value="客単価">客単価</option>
-                <option value="スタッフ・運営">スタッフ・運営</option>
-                <option value="メニュー構成">メニュー構成</option>
-                <option value="ホームページ">ホームページ</option>
-                <option value="SNS">SNS</option>
-                <option value="予約導線">予約導線</option>
-                <option value="その他">その他</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="goal">目標 <span class="optional">任意</span></label>
-              <input id="goal" name="goal" type="text" placeholder="例：月商100万円を安定させたい">
-            </div>
-            <div class="field">
-              <label for="mainMenu">一番売りたいメニュー <span class="optional">任意</span></label>
-              <input id="mainMenu" name="mainMenu" type="text" placeholder="例：定額デザイン、まつげパーマ、眉WAX">
-            </div>
-            <div class="field">
-              <label for="profitMenu">一番利益を残したいメニュー <span class="optional">任意</span></label>
-              <input id="profitMenu" name="profitMenu" type="text" placeholder="例：セットメニュー、高単価デザイン">
-            </div>
-            <div class="field field-full">
-              <label for="googleReviews">Google口コミの状況 <span class="optional">任意</span></label>
-              <select id="googleReviews" name="googleReviews">
-                <option value="">選択してください</option>
-                <option value="定期的に増えている">定期的に増えている</option>
-                <option value="少しある">少しある</option>
-                <option value="あまり増えていない">あまり増えていない</option>
-                <option value="まだ対策していない">まだ対策していない</option>
-                <option value="分からない">分からない</option>
-              </select>
-            </div>
-            <div class="field field-full">
-              <label for="listingIssue">ホームページ・ホットペッパービューティーの掲載内容で困っていること <span class="optional">任意</span></label>
-              <textarea id="listingIssue" name="listingIssue" placeholder="例：メニューの見せ方、クーポン設計、写真、口コミ、予約導線、サロンの強みの伝え方など"></textarea>
-            </div>
-            <div class="field field-full">
-              <label for="customerQuestions">お客様からよく聞かれる不安や質問 <span class="optional">任意</span></label>
-              <textarea id="customerQuestions" name="customerQuestions" placeholder="例：料金、持ち、施術時間、デザイン相談、初回来店時の流れ、駐車場、支払い方法など"></textarea>
-            </div>
-            <div class="field field-full">
-              <label for="memo">現在の課題・相談したいこと <span class="optional">任意</span></label>
-              <textarea id="memo" name="memo" placeholder="商談中のメモや、気になっていることを入力してください。"></textarea>
-            </div>
-          </div>
-          <div class="form-actions">
-            <button class="btn btn-primary" type="submit">結果を表示する</button>
-          </div>
-        </section>
-      </form>
-
-      <section class="result" id="resultArea" aria-live="polite" aria-labelledby="resultHeading">
-        <div class="section-head">
-          <span class="section-kicker">RESULT</span>
-          <h2 id="resultHeading">整理結果</h2>
-        </div>
-
-        <div class="result-layout">
-          <article class="result-card wide">
-            <h3>現状整理</h3>
-            <p class="summary-text" id="summaryText"></p>
-          </article>
-
-          <article class="result-card wide">
-            <h3>状態スコア一覧</h3>
-            <div class="score-grid" id="scoreGrid"></div>
-            <div class="notice" style="margin-top: 14px;">
-              このスコアは、入力内容をもとにした簡易整理です。正確な経営診断ではなく、商談時に優先して確認する項目を見つけるための目安としてご利用ください。
-            </div>
-          </article>
-
-          <article class="result-card wide">
-            <h3>比較的整っている項目</h3>
-            <ol class="priority-list" id="strengthList"></ol>
-          </article>
-
-          <article class="result-card wide">
-            <h3>優先して整理したい課題3つ</h3>
-            <ol class="priority-list" id="priorityList"></ol>
-          </article>
-
-          <article class="result-card">
-            <h3>商談時に深掘りしたい質問</h3>
-            <ul class="clean-list" id="questionList"></ul>
-          </article>
-
-          <article class="result-card">
-            <h3>今すぐ確認したいこと</h3>
-            <ul class="clean-list" id="checkList"></ul>
-          </article>
-
-          <article class="result-card">
-            <h3>後回しでもよい可能性があること</h3>
-            <ul class="clean-list" id="laterList"></ul>
-          </article>
-
-          <article class="result-card">
-            <h3>次回提案につながる候補</h3>
-            <ul class="clean-list" id="proposalList"></ul>
-          </article>
-
-          <article class="result-card wide">
-            <h3>ウィルネクストで支援できる内容</h3>
-            <p class="summary-text" style="margin-bottom: 12px;">必要に応じて、以下のような内容を一緒に整理できます。</p>
-            <ul class="support-grid" id="supportList"></ul>
-          </article>
-
-          <article class="result-card wide">
-            <h3>注意書き</h3>
-            <div class="notice">
-              本結果は、商談時点での入力内容をもとにした整理メモです。正確な経営診断や成果保証ではなく、今後の改善方針を検討するための参考情報としてご確認ください。
-            </div>
-            <div class="result-actions">
-              <button class="btn btn-gold" type="button" id="copyButton">メール用に診断結果をコピーする</button>
-              <button class="btn btn-secondary" type="button" id="editButton">入力内容を修正する</button>
-              <button class="btn btn-light" type="button" id="resetButton">最初からやり直す</button>
-            </div>
-            <div class="copy-message" id="copyMessage" role="status"></div>
-            <textarea class="hidden-copy" id="copyFallback" aria-hidden="true" tabindex="-1"></textarea>
-          </article>
+  <main>
+    <div class="wrap">
+      <section class="intro-card" id="diagnosis" aria-labelledby="diagnosis-title">
+        <h2 id="diagnosis-title">現在の状況を選んでください</h2>
+        <p class="section-note">各質問について、現時点で最も近い選択肢を1つ選んでください。すべての回答はこのページ内だけで利用され、外部には送信されません。</p>
+        <div class="answer-guide" aria-label="回答と点数の目安">
+          <div class="guide-item"><strong>A. できている</strong>3点</div>
+          <div class="guide-item"><strong>B. ある程度できている</strong>2点</div>
+          <div class="guide-item"><strong>C. あまりできていない</strong>1点</div>
+          <div class="guide-item"><strong>D. できていない / 分からない</strong>0点</div>
         </div>
       </section>
-    </main>
 
-    <footer class="footer">
-      ウィルネクスト合同会社
-    </footer>
-  </div>
+      <form id="diagnosis-form" novalidate>
+        <div id="question-sections"></div>
+        <p class="error-message" id="form-error" role="alert">未回答の項目があります。すべて選択してください。</p>
+        <div class="actions">
+          <button class="button button-primary" type="submit">診断する</button>
+        </div>
+      </form>
+
+      <section id="result" aria-live="polite" aria-labelledby="result-title">
+        <div class="result-card">
+          <div class="result-heading">
+            <div>
+              <p class="eyebrow">DIAGNOSIS RESULT</p>
+              <h2 id="result-title">診断結果</h2>
+              <p class="section-note">現在の回答をもとにした、優先確認ポイントの整理です。</p>
+            </div>
+            <div class="score-circle" aria-label="総合診断スコア"><strong id="total-score">0</strong><span>/ 100点</span></div>
+          </div>
+          <div class="rank-box">
+            <div class="rank-title" id="rank-title">-</div>
+            <p class="rank-copy" id="rank-copy"></p>
+          </div>
+          <h3 style="margin-top:24px;">カテゴリ別スコア</h3>
+          <div class="score-grid" id="score-grid"></div>
+          <p class="result-note">このスコアは、選択内容をもとにした簡易整理です。正確な経営診断ではなく、相談時に優先して確認したい項目を見つけるための目安としてご利用ください。</p>
+        </div>
+
+        <div class="result-columns">
+          <section class="result-card" aria-labelledby="priority-title">
+            <p class="eyebrow">PRIORITY CHECK</p>
+            <h2 id="priority-title">優先改善領域 トップ3</h2>
+            <p class="section-note">現時点では、優先的に見直す候補として考えられます。</p>
+            <ol class="priority-list" id="priority-list"></ol>
+          </section>
+          <section class="result-card" aria-labelledby="strength-title">
+            <p class="eyebrow">CURRENT STRENGTHS</p>
+            <h2 id="strength-title">比較的整っている領域</h2>
+            <p class="section-note">現在の強みとして活かせる可能性があります。</p>
+            <ul class="strength-list" id="strength-list"></ul>
+          </section>
+        </div>
+
+        <section class="result-card" aria-labelledby="insight-title">
+          <p class="eyebrow">PERSPECTIVE</p>
+          <h2 id="insight-title">課題の見立て</h2>
+          <p class="insight" id="insight-copy"></p>
+        </section>
+
+        <section class="cta" aria-labelledby="cta-title">
+          <h2 id="cta-title">詳しい改善方法は、ウィルネクストで一緒に整理できます</h2>
+          <p>この詳細診断では、現在の経営・集客状況から優先して確認したい領域を整理しています。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
+          <a class="button button-gold" href="#">診断結果をもとに相談する</a>
+        </section>
+
+        <section class="support-section" aria-labelledby="support-title">
+          <p class="eyebrow">HOW WE CAN HELP</p>
+          <h2 id="support-title">ウィルネクストで支援できる内容</h2>
+          <ul class="support-list" id="support-list"></ul>
+        </section>
+
+        <p class="copy-message" id="copy-message" role="status"></p>
+        <div class="result-actions">
+          <button class="button button-primary" type="button" id="copy-button">メール用に診断結果をコピーする</button>
+          <button class="button button-outline" type="button" id="reset-button">最初からやり直す</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="wrap">ウィルネクスト合同会社</div></footer>
 
   <script>
-    const categories = [
-      "集客",
-      "リピート",
-      "客単価",
-      "メニュー設計",
-      "Web導線",
-      "SNS",
-      "Google対策",
-      "運営体制"
+    /* 質問データ: 内容変更はここで行えます。 */
+    const diagnosisCategories = [
+      {
+        id: 'acquisition', name: '集客',
+        description: '新規のお客様がどの媒体から来ているか、媒体ごとの役割を整理すると改善方針が見えやすくなる可能性があります。',
+        questions: [
+          '新規のお客様がどの媒体から来ているか把握できている',
+          'ホットペッパービューティー以外の集客経路もある',
+          'InstagramやGoogleマップからの来店導線がある',
+          '紹介や口コミによる来店が発生している',
+          '集客媒体ごとの役割を整理できている'
+        ]
+      },
+      {
+        id: 'repeat', name: 'リピート',
+        description: '再来店につながる声かけ、次回予約、来店周期の設計を確認するとよさそうです。',
+        questions: [
+          '次回予約につながる声かけや流れがある',
+          '再来店しやすい周期や提案ができている',
+          '失客しやすいタイミングを把握している',
+          'リピーター向けのメニューや提案がある',
+          'お客様ごとの来店履歴や好みを活用できている'
+        ]
+      },
+      {
+        id: 'unit-price', name: '客単価',
+        description: 'セットメニュー、高単価メニュー、価格ではなく価値を伝える見せ方を整理するとよさそうです。',
+        questions: [
+          '客単価の目標を設定できている',
+          '高単価メニューやセットメニューがある',
+          '価格だけでなく価値が伝わる説明ができている',
+          '単価を上げたいメニューが明確になっている',
+          '安売りに頼りすぎない見せ方ができている'
+        ]
+      },
+      {
+        id: 'menu', name: 'メニュー設計',
+        description: '売りたいメニュー、利益を残したいメニュー、初回のお客様が選びやすいメニュー構成を確認したい項目です。',
+        questions: [
+          '売りたいメニューが分かりやすく掲載されている',
+          '利益を残したいメニューが整理されている',
+          '初めてのお客様が選びやすいメニュー構成になっている',
+          '人気メニューと推したいメニューを分けて考えられている',
+          'クーポンやメニュー名が分かりやすい'
+        ]
+      },
+      {
+        id: 'web', name: 'Web導線',
+        description: 'ホームページ、予約ページ、Instagram、Googleマップから予約までの流れを確認するとよさそうです。',
+        questions: [
+          'ホームページや予約ページで、初めてのお客様が迷わず予約できる',
+          '料金・メニュー・施術時間が分かりやすい',
+          '店舗の強みや雰囲気が伝わる',
+          'Instagram、Googleマップ、予約ページの導線がつながっている',
+          'お客様からよく聞かれる不安がページ上で解消されている'
+        ]
+      },
+      {
+        id: 'hpb', name: 'ホットペッパービューティー',
+        description: 'クーポン、メニューの並び、写真、口コミ、予約前の不安を減らす説明を確認したい項目です。',
+        questions: [
+          'クーポン内容が価格だけでなく価値まで伝わる',
+          'メニュー・クーポンの並び順に意図がある',
+          '写真やデザイン画像がサロンの魅力を伝えている',
+          '口コミ返信や口コミ活用ができている',
+          '予約前に不安を減らす説明が掲載されている'
+        ]
+      },
+      {
+        id: 'google', name: 'Google対策',
+        description: 'Googleビジネスプロフィール、写真、口コミ、営業時間、Googleマップからの予約導線を確認するとよさそうです。',
+        questions: [
+          'Googleビジネスプロフィールの情報が最新になっている',
+          '写真・営業時間・メニュー情報が整っている',
+          'Google口コミが定期的に増えている',
+          '口コミ返信ができている',
+          'Googleマップから予約や問い合わせにつながる導線がある'
+        ]
+      },
+      {
+        id: 'operations', name: '運営体制',
+        description: '席数、スタッフ数、予約枠、数字管理、改善優先順位を確認するとよさそうです。',
+        questions: [
+          '席数・スタッフ数に対して無理のない予約枠になっている',
+          'スタッフごとの役割が整理されている',
+          '忙しい時間帯や空きやすい時間帯を把握している',
+          '売上・客数・単価などの数字を定期的に確認している',
+          '改善すべき課題の優先順位を決められている'
+        ]
+      }
     ];
 
-    const categoryDescriptions = {
-      "集客": "新規のお客様がどこから来ているか、媒体ごとの役割を整理するとよさそうです。",
-      "リピート": "再来店につながる仕組みや、次回予約の流れを確認するとよさそうです。",
-      "客単価": "メニュー構成やセット提案、価格の見せ方を整理すると安心です。",
-      "メニュー設計": "人気メニュー・推したいメニュー・利益を残したいメニューを分けて考えるとよさそうです。",
-      "Web導線": "ホームページや予約ページで、初めてのお客様が迷わず予約できるか確認したい項目です。",
-      "SNS": "Instagramなどでサロンの雰囲気やメニューの魅力が伝わっているか整理するとよさそうです。",
-      "Google対策": "Googleマップや口コミ、写真、営業時間などの情報を確認するとよさそうです。",
-      "運営体制": "席数・スタッフ数・営業時間に対して、無理なく運営できる形か確認したい項目です。"
-    };
-
-    const concernPriority = {
-      "新規集客": ["Web導線", "Google対策", "SNS", "集客"],
-      "リピート": ["リピート"],
-      "客単価": ["客単価", "メニュー設計"],
-      "スタッフ・運営": ["運営体制"],
-      "メニュー構成": ["メニュー設計"],
-      "ホームページ": ["Web導線"],
-      "SNS": ["SNS"],
-      "予約導線": ["Web導線", "集客"],
-      "その他": []
-    };
+    const answerOptions = [
+      { label: 'A. できている', value: 3 },
+      { label: 'B. ある程度できている', value: 2 },
+      { label: 'C. あまりできていない', value: 1 },
+      { label: 'D. できていない / 分からない', value: 0 }
+    ];
 
     const supportItems = [
-      "初回相談での課題整理",
-      "サロン診断レポートの作成",
-      "ホームページ・予約導線の改善",
-      "ホットペッパービューティー掲載内容の整理",
-      "InstagramやGoogleマップの活用相談",
-      "メニュー構成や打ち出し方の整理",
-      "無理なく続けられる改善計画の作成",
-      "小規模サロン向けの実務的な運営支援"
+      'サロン診断レポートの作成',
+      'ホームページ・予約導線の改善',
+      'ホットペッパービューティー掲載内容の整理',
+      'クーポン・メニュー構成の見直し',
+      'Instagramプロフィール・投稿導線改善',
+      'Googleビジネスプロフィール整理',
+      'メニュー構成・単価設計の見直し',
+      'リピート導線の整理',
+      '小規模サロン向けの実務的な運営支援'
     ];
 
-    const form = document.getElementById("salonForm");
-    const resultArea = document.getElementById("resultArea");
-    const summaryText = document.getElementById("summaryText");
-    const scoreGrid = document.getElementById("scoreGrid");
-    const strengthList = document.getElementById("strengthList");
-    const priorityList = document.getElementById("priorityList");
-    const questionList = document.getElementById("questionList");
-    const checkList = document.getElementById("checkList");
-    const laterList = document.getElementById("laterList");
-    const proposalList = document.getElementById("proposalList");
-    const supportList = document.getElementById("supportList");
-    const copyButton = document.getElementById("copyButton");
-    const editButton = document.getElementById("editButton");
-    const resetButton = document.getElementById("resetButton");
-    const copyMessage = document.getElementById("copyMessage");
-    const copyFallback = document.getElementById("copyFallback");
+    const rankDefinitions = [
+      { min: 80, rank: 'Aランク', text: '比較的整っている状態。現在の強みを活かしながら、個別に確認すると改善方針が見えやすくなる可能性があります。' },
+      { min: 65, rank: 'Bランク', text: '一部見直しで改善余地がある状態。優先順位を整理すると、次に確認することが明確になりそうです。' },
+      { min: 45, rank: 'Cランク', text: '優先課題を整理したい状態。回答が低めの領域から、実際の内容を個別に確認するとよさそうです。' },
+      { min: 25, rank: 'Dランク', text: '集客・導線の見直し余地が大きい状態。まずはお客様が知ってから予約するまでの流れを整理すると安心です。' },
+      { min: 0, rank: 'Eランク', text: 'まず現状整理から始めたい状態。無理に急がず、確認すべき項目を一つずつ整理することが大切です。' }
+    ];
 
-    let latestResult = null;
+    const form = document.getElementById('diagnosis-form');
+    const questionSections = document.getElementById('question-sections');
+    const formError = document.getElementById('form-error');
+    const result = document.getElementById('result');
+    const copyMessage = document.getElementById('copy-message');
 
-    // 媒体名の表記ゆれを拾いやすくするため、英数・かなをざっくり正規化します。
-    function normalizeText(value) {
-      return String(value || "")
-        .normalize("NFKC")
-        .toLowerCase()
-        .replace(/[ぁ-ん]/g, function(char) {
-          return String.fromCharCode(char.charCodeAt(0) + 0x60);
-        })
-        .replace(/\s+/g, "");
+    function renderQuestions() {
+      questionSections.innerHTML = diagnosisCategories.map((category, categoryIndex) => `
+        <section class="category" id="category-${category.id}" aria-labelledby="category-title-${category.id}">
+          <div class="category-header">
+            <span class="category-number">${categoryIndex + 1}</span>
+            <h3 id="category-title-${category.id}">${category.name}</h3>
+          </div>
+          <div class="category-body">
+            ${category.questions.map((question, questionIndex) => {
+              const inputName = `${category.id}-${questionIndex}`;
+              return `
+                <fieldset class="question" data-question="${inputName}">
+                  <legend class="question-text"><span class="question-index">${questionIndex + 1}.</span>${question}</legend>
+                  <div class="choices">
+                    ${answerOptions.map((option, optionIndex) => `
+                      <label class="choice">
+                        <input type="radio" name="${inputName}" value="${option.value}">
+                        <span class="choice-letter">${String.fromCharCode(65 + optionIndex)}</span>
+                        <span>${option.label.replace(/^[A-D]\. /, '')}</span>
+                      </label>
+                    `).join('')}
+                  </div>
+                </fieldset>`;
+            }).join('')}
+          </div>
+        </section>`
+      ).join('');
+      document.getElementById('support-list').innerHTML = supportItems.map(item => `<li>${item}</li>`).join('');
     }
 
-    function toDisplay(value) {
-      const text = String(value || "").trim();
-      return text ? text : "未入力";
+    function clearUnansweredStates() {
+      document.querySelectorAll('.question.is-unanswered').forEach(item => item.classList.remove('is-unanswered'));
+      formError.classList.remove('is-visible');
     }
 
-    function parseNumber(value) {
-      const raw = String(value || "").normalize("NFKC").trim();
-      if (!raw) return null;
-      const match = raw.replace(/,/g, "").match(/[\d.]+/);
-      if (!match) return null;
-      let number = Number(match[0]);
-      if (!Number.isFinite(number)) return null;
-      if (raw.includes("万")) number *= 10000;
-      return Math.round(number);
+    function collectScores() {
+      const missing = [];
+      const scores = diagnosisCategories.map(category => {
+        const points = category.questions.reduce((sum, _question, index) => {
+          const inputName = `${category.id}-${index}`;
+          const selected = form.querySelector(`input[name="${inputName}"]:checked`);
+          if (!selected) {
+            missing.push(inputName);
+            return sum;
+          }
+          return sum + Number(selected.value);
+        }, 0);
+        return { ...category, score: Math.round((points / 15) * 100), points };
+      });
+      return { scores, missing };
     }
 
-    function clampScore(value) {
-      return Math.max(0, Math.min(100, Math.round(value)));
+    function getRank(totalScore) {
+      return rankDefinitions.find(rank => totalScore >= rank.min);
     }
 
-    function addScore(scores, category, value) {
-      scores[category] = (scores[category] || 0) + value;
+    function createInsight(priorities) {
+      const names = priorities.map(item => `「${item.name}」`).join('、');
+      const first = priorities[0].name;
+      return `今回の診断では、特に${names}に見直し余地がある可能性があります。まずは「${first}」を起点に、実際の掲載内容・予約までの流れ・日々の運用状況を確認すると、改善の優先順位が整理しやすくなります。具体的な方法は、商圏や競合、現在のメニュー構成などを踏まえて個別に検討するとよさそうです。`;
     }
 
-    function getFormData() {
-      return {
-        salonName: document.getElementById("salonName").value.trim(),
-        area: document.getElementById("area").value.trim(),
-        businessType: document.getElementById("businessType").value,
-        yearsOpen: document.getElementById("yearsOpen").value,
-        averageSpendRaw: document.getElementById("averageSpend").value.trim(),
-        monthlySalesRaw: document.getElementById("monthlySales").value.trim(),
-        seatsRaw: document.getElementById("seats").value.trim(),
-        staffRaw: document.getElementById("staff").value.trim(),
-        newCustomersRaw: document.getElementById("newCustomers").value.trim(),
-        repeatCustomersRaw: document.getElementById("repeatCustomers").value.trim(),
-        channels: document.getElementById("channels").value.trim(),
-        reservationRoutes: document.getElementById("reservationRoutes").value.trim(),
-        adCostRaw: document.getElementById("adCost").value.trim(),
-        mainConcern: document.getElementById("mainConcern").value,
-        goal: document.getElementById("goal").value.trim(),
-        mainMenu: document.getElementById("mainMenu").value.trim(),
-        profitMenu: document.getElementById("profitMenu").value.trim(),
-        googleReviews: document.getElementById("googleReviews").value,
-        listingIssue: document.getElementById("listingIssue").value.trim(),
-        customerQuestions: document.getElementById("customerQuestions").value.trim(),
-        memo: document.getElementById("memo").value.trim()
-      };
+    function renderResults(scoreData) {
+      const totalScore = Math.round(scoreData.reduce((sum, item) => sum + item.score, 0) / scoreData.length);
+      const rank = getRank(totalScore);
+      const priorities = [...scoreData].sort((a, b) => a.score - b.score || a.id.localeCompare(b.id)).slice(0, 3);
+      const strengths = [...scoreData].sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
+
+      document.getElementById('total-score').textContent = totalScore;
+      document.getElementById('rank-title').textContent = `${rank.rank} / ${rank.text.split('。')[0]}`;
+      document.getElementById('rank-copy').textContent = rank.text;
+      document.getElementById('score-grid').innerHTML = scoreData.map(item => `
+        <div class="score-row">
+          <span class="score-name">${item.name}</span>
+          <span class="bar" aria-hidden="true"><span style="width:${item.score}%"></span></span>
+          <span class="score-value">${item.score}点</span>
+        </div>`).join('');
+      document.getElementById('priority-list').innerHTML = priorities.map(item => `
+        <li>
+          <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
+          <p class="item-copy">${item.description}</p>
+        </li>`).join('');
+      document.getElementById('strength-list').innerHTML = strengths.map(item => `
+        <li>
+          <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
+          <p class="item-copy">比較的整っている可能性があります。現在の強みとして活かせる点を、実際の運用内容とあわせて確認するとよさそうです。</p>
+        </li>`).join('');
+      document.getElementById('insight-copy').textContent = createInsight(priorities);
+      result.dataset.result = JSON.stringify({ totalScore, rank, scoreData, priorities, strengths });
+      result.classList.add('is-visible');
+      copyMessage.classList.remove('is-visible');
     }
 
-    // 8カテゴリを0点から加点し、悩みに近いカテゴリは控えめに調整します。
-    function calculateScores(data) {
-      const scores = categories.reduce(function(acc, category) {
-        acc[category] = 0;
-        return acc;
-      }, {});
+    function buildEmailText() {
+      const resultData = JSON.parse(result.dataset.result || '{}');
+      const { totalScore, rank, scoreData, priorities, strengths } = resultData;
+      const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
+      const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
+      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性があり、現在の強みとして活かせる点を確認するとよさそうです。`).join('\n\n');
+      return `件名案：【美容サロン向け 経営・集客 詳細診断】診断結果メモ
 
-      const channels = normalizeText(data.channels);
-      const reservationRoutes = normalizeText(data.reservationRoutes);
-      const averageSpend = parseNumber(data.averageSpendRaw);
-      const monthlySales = parseNumber(data.monthlySalesRaw);
-      const seats = parseNumber(data.seatsRaw);
-      const staff = parseNumber(data.staffRaw);
-      const newCustomers = parseNumber(data.newCustomersRaw);
-      const repeatCustomers = parseNumber(data.repeatCustomersRaw);
-      const adCost = parseNumber(data.adCostRaw);
+本日の整理内容
+美容サロン向け 経営・集客 詳細診断の結果を共有します。
 
-      if (/ホットペッパー|hotpepper|hpb/.test(channels)) {
-        addScore(scores, "集客", 20);
-      }
-      if (/instagram|インスタ|insta/.test(channels)) {
-        addScore(scores, "SNS", 30);
-        addScore(scores, "集客", 10);
-      }
-      if (/google|グーグル|googleマップ|gbp/.test(channels)) {
-        addScore(scores, "Google対策", 30);
-        addScore(scores, "集客", 10);
-      }
-      if (/ホームページ|webサイト|ウェブサイト|サイト/.test(channels) || /(^|[^a-z])hp([^a-z]|$)/.test(channels)) {
-        addScore(scores, "Web導線", 30);
-        addScore(scores, "集客", 10);
-      }
-      if (/紹介|口コミ紹介/.test(channels)) {
-        addScore(scores, "集客", 15);
-        addScore(scores, "リピート", 10);
-      }
-      if (/チラシ|看板/.test(channels)) {
-        addScore(scores, "集客", 10);
-      }
+注意書き
+本内容は選択式の回答をもとにした簡易整理です。正確な経営診断や成果保証ではなく、相談時に優先して確認したい領域を見つけるための目安としてご利用ください。
 
-      if (newCustomers !== null && newCustomers > 0) {
-        if (newCustomers >= 20) {
-          addScore(scores, "集客", 20);
-        } else if (newCustomers >= 10) {
-          addScore(scores, "集客", 10);
-        } else {
-          addScore(scores, "集客", 5);
-        }
-      }
+総合診断スコア：${totalScore}点 / 100点
+診断ランク：${rank.rank}
+${rank.text}
 
-      if (repeatCustomers !== null && repeatCustomers > 0) {
-        if (repeatCustomers >= 30) {
-          addScore(scores, "リピート", 20);
-        } else if (repeatCustomers >= 15) {
-          addScore(scores, "リピート", 10);
-        } else {
-          addScore(scores, "リピート", 5);
-        }
-      }
+カテゴリ別スコア
+${categoryScores}
 
-      if (/line|ライン/.test(reservationRoutes)) {
-        addScore(scores, "Web導線", 10);
-        addScore(scores, "リピート", 10);
-      }
-      if (/instagram|インスタ|insta/.test(reservationRoutes)) {
-        addScore(scores, "SNS", 10);
-        addScore(scores, "Web導線", 10);
-      }
-      if (/google|グーグル|googleマップ/.test(reservationRoutes)) {
-        addScore(scores, "Google対策", 10);
-        addScore(scores, "Web導線", 10);
-      }
-      if (/ホームページ|webサイト|ウェブサイト|サイト/.test(reservationRoutes) || /(^|[^a-z])hp([^a-z]|$)/.test(reservationRoutes)) {
-        addScore(scores, "Web導線", 20);
-      }
-      if (/ホットペッパー|hotpepper|hpb/.test(reservationRoutes)) {
-        addScore(scores, "集客", 10);
-        addScore(scores, "Web導線", 5);
-      }
-      if (/電話/.test(reservationRoutes)) {
-        addScore(scores, "運営体制", 5);
-      }
+優先改善領域 トップ3
+${priorityText}
 
-      if (adCost !== null && adCost > 0) {
-        addScore(scores, "集客", 5);
-        if (adCost >= 50000) {
-          addScore(scores, "集客", 10);
-        }
-      }
+比較的整っている領域 トップ2
+${strengthText}
 
-      if (averageSpend !== null) {
-        if (averageSpend >= 8000) {
-          addScore(scores, "客単価", 30);
-          addScore(scores, "メニュー設計", 15);
-        } else if (averageSpend >= 6000) {
-          addScore(scores, "客単価", 20);
-          addScore(scores, "メニュー設計", 10);
-        } else if (averageSpend >= 4000) {
-          addScore(scores, "客単価", 10);
-          addScore(scores, "メニュー設計", 5);
-        } else {
-          addScore(scores, "客単価", 5);
-          addScore(scores, "メニュー設計", 5);
-        }
-      }
+課題の見立て
+${createInsight(priorities)}
 
-      if (monthlySales !== null) {
-        if (monthlySales >= 1000000) {
-          addScore(scores, "集客", 20);
-          addScore(scores, "運営体制", 15);
-        } else if (monthlySales >= 500000) {
-          addScore(scores, "集客", 10);
-          addScore(scores, "運営体制", 10);
-        } else {
-          addScore(scores, "集客", 5);
-          addScore(scores, "運営体制", 5);
-        }
-      }
+詳しい改善方法について
+実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。ウィルネクストでは、現在の状況にあわせて改善の優先順位を一緒に整理できます。
 
-      if (data.yearsOpen === "3年以上") {
-        addScore(scores, "運営体制", 20);
-        addScore(scores, "リピート", 15);
-      } else if (data.yearsOpen === "1〜3年") {
-        addScore(scores, "運営体制", 10);
-        addScore(scores, "リピート", 10);
-      } else if (data.yearsOpen === "1年未満") {
-        addScore(scores, "集客", 5);
-        addScore(scores, "Web導線", 5);
-        addScore(scores, "Google対策", 5);
-      } else if (data.yearsOpen === "開業前") {
-        addScore(scores, "Web導線", 5);
-        addScore(scores, "集客", 5);
-        addScore(scores, "運営体制", 5);
-      }
+ウィルネクストで支援できる内容
+${supportItems.map(item => `・${item}`).join('\n')}
 
-      if (seats !== null && staff !== null) {
-        if (seats >= 2 && staff >= 2) {
-          addScore(scores, "運営体制", 10);
-        } else if (seats === 1 && staff === 1) {
-          addScore(scores, "運営体制", 5);
-        }
-      }
-
-      if (data.mainMenu) {
-        addScore(scores, "メニュー設計", 10);
-        addScore(scores, "客単価", 5);
-      }
-      if (data.profitMenu) {
-        addScore(scores, "メニュー設計", 15);
-        addScore(scores, "客単価", 10);
-      }
-
-      if (data.googleReviews === "定期的に増えている") {
-        addScore(scores, "Google対策", 30);
-      } else if (data.googleReviews === "少しある") {
-        addScore(scores, "Google対策", 15);
-      } else if (data.googleReviews === "あまり増えていない") {
-        addScore(scores, "Google対策", 5);
-      }
-
-      if (data.listingIssue) {
-        addScore(scores, "Web導線", 5);
-        addScore(scores, "メニュー設計", 5);
-      }
-
-      if (data.customerQuestions) {
-        addScore(scores, "Web導線", 10);
-        addScore(scores, "メニュー設計", 10);
-      }
-
-      const concernCategories = concernPriority[data.mainConcern] || [];
-      concernCategories.forEach(function(category) {
-        const penalty = data.mainConcern === "新規集客" || data.mainConcern === "予約導線" ? 15 : 12;
-        scores[category] = Math.max(0, scores[category] - penalty);
-      });
-
-      categories.forEach(function(category) {
-        scores[category] = clampScore(scores[category]);
-      });
-
-      return scores;
-    }
-
-    // 低スコア順で優先課題を選び、同点の場合は現在の悩みに近いカテゴリを優先します。
-    function getPriorityCategories(scores, mainConcern) {
-      const concernOrder = concernPriority[mainConcern] || [];
-      return categories
-        .map(function(category, index) {
-          const concernIndex = concernOrder.indexOf(category);
-          return {
-            name: category,
-            score: scores[category],
-            concernRank: concernIndex === -1 ? 99 : concernIndex,
-            originalIndex: index
-          };
-        })
-        .sort(function(a, b) {
-          if (a.score !== b.score) return a.score - b.score;
-          if (a.concernRank !== b.concernRank) return a.concernRank - b.concernRank;
-          return a.originalIndex - b.originalIndex;
-        })
-        .slice(0, 3);
-    }
-
-    function getStrengthCategories(scores) {
-      return categories
-        .map(function(category, index) {
-          return {
-            name: category,
-            score: scores[category],
-            originalIndex: index
-          };
-        })
-        .sort(function(a, b) {
-          if (a.score !== b.score) return b.score - a.score;
-          return a.originalIndex - b.originalIndex;
-        })
-        .slice(0, 2);
-    }
-
-    function createSummary(data, priorities) {
-      const names = priorities.map(function(item) { return "「" + item.name + "」"; }).join("や");
-      const salon = data.salonName ? data.salonName + "様" : "今回のサロン様";
-      const concern = data.mainConcern ? "現在のお悩みとして「" + data.mainConcern + "」が挙がっているため、" : "";
-      const memoNote = data.memo || data.listingIssue || data.customerQuestions ? "ご相談内容や掲載面の気になる点も踏まえると、" : "";
-      const listingNote = data.listingIssue ? "ホームページ・ホットペッパービューティーの掲載内容についても、料金・メニュー・クーポン・写真・口コミ・予約導線が分かりやすいか確認するとよさそうです。" : "";
-
-      return salon + "の入力内容から見ると、" + memoNote + "現時点では" + names + "を優先的に見直す候補として考えられます。" + concern + "商談時には、初めてのお客様がサロンを知ってから予約・再来店につながるまでの流れを一緒に確認するとよさそうです。" + listingNote + "空欄の項目がある場合は、情報不足として低めに残しているため、まずは商談時に一緒に確認したい項目として整理しておくと安心です。";
-    }
-
-    function getCheckItems(priorities) {
-      const map = {
-        "集客": [
-          "主な集客媒体ごとの役割を整理する",
-          "新規のお客様がどこから来ているか確認する"
-        ],
-        "リピート": [
-          "次回予約や再来店の声かけの流れを確認する",
-          "再来店につながっているメニューや接客の流れを整理する"
-        ],
-        "客単価": [
-          "単価を上げたいメニューと、お客様に選ばれやすい見せ方を確認する",
-          "セット提案やオプションの案内方法を整理する"
-        ],
-        "メニュー設計": [
-          "人気メニューと利益を残したいメニューを分けて確認する",
-          "初めてのお客様がメニュー選びで迷いにくい状態か整理する",
-          "ホットペッパービューティーのクーポン・写真・口コミ・メニュー表示を確認する"
-        ],
-        "Web導線": [
-          "Instagramや検索から予約までの流れを確認する",
-          "初めてのお客様が、料金・メニュー・雰囲気を迷わず確認できる状態か整理する",
-          "ホットペッパービューティーのクーポン・写真・口コミ・メニュー表示を確認する",
-          "お客様からよく聞かれる不安を、ホームページや予約ページに反映できるか確認する"
-        ],
-        "SNS": [
-          "Instagramでサロンの雰囲気やメニューの魅力が伝わっているか確認する",
-          "投稿から予約ページまでの流れを確認する"
-        ],
-        "Google対策": [
-          "Googleビジネスプロフィールの登録状況、写真、口コミ、営業時間情報を確認する",
-          "Googleマップ上で初めてのお客様が必要な情報を見つけられるか整理する"
-        ],
-        "運営体制": [
-          "席数・スタッフ数に対して、無理なく予約を受けられる形か確認する",
-          "営業時間や予約枠の使い方を整理する"
-        ]
-      };
-
-      const items = [];
-      priorities.forEach(function(priority) {
-        (map[priority.name] || []).forEach(function(item) {
-          if (!items.includes(item)) items.push(item);
-        });
-      });
-
-      [
-        "商談時に、未入力の項目や判断に迷う項目を一緒に確認する",
-        "今後の改善方針を決める前に、現状の数字と導線を整理する"
-      ].forEach(function(item) {
-        if (items.length < 5 && !items.includes(item)) items.push(item);
-      });
-
-      return items.slice(0, 5);
-    }
-
-    function getDeepDiveQuestions(priorities, data) {
-      const map = {
-        "集客": [
-          "現在の新規客は、どの媒体からの来店が多いですか？",
-          "主な集客媒体ごとに、どのような役割を持たせていますか？"
-        ],
-        "リピート": [
-          "次回予約や再来店につながる声かけは決まっていますか？",
-          "再来店につながりやすいメニューやタイミングは見えていますか？"
-        ],
-        "客単価": [
-          "一番売りたいメニューは、予約ページやSNS上で目立っていますか？",
-          "価格だけでなく、内容や価値が伝わる見せ方になっていますか？"
-        ],
-        "メニュー設計": [
-          "人気メニューと利益を残したいメニューは分けて考えられていますか？",
-          "ホットペッパービューティーのクーポンは、価格だけでなく価値が伝わる内容になっていますか？"
-        ],
-        "Web導線": [
-          "予約までの流れで、お客様が迷いやすい部分はありますか？",
-          "お客様からよく聞かれる不安は、ホームページや予約ページに反映されていますか？"
-        ],
-        "SNS": [
-          "Instagramのプロフィールから予約までの流れは分かりやすいですか？",
-          "投稿内容で、サロンの雰囲気や売りたいメニューは伝わっていますか？"
-        ],
-        "Google対策": [
-          "Googleマップ上の写真・口コミ・営業時間は最新ですか？",
-          "口コミを増やすための声かけや導線は決まっていますか？"
-        ],
-        "運営体制": [
-          "席数・スタッフ数に対して、予約枠に無理は出ていませんか？",
-          "電話・LINE・予約サイトなどの対応ルールは整理されていますか？"
-        ]
-      };
-
-      const items = [];
-      priorities.forEach(function(priority) {
-        (map[priority.name] || []).forEach(function(item) {
-          if (!items.includes(item)) items.push(item);
-        });
-      });
-      if (data.listingIssue && !items.includes("ホットペッパービューティー上で、売りたいメニューや強みは伝わっていますか？")) {
-        items.unshift("ホットペッパービューティー上で、売りたいメニューや強みは伝わっていますか？");
-      }
-      if (data.customerQuestions && !items.includes("お客様からよく聞かれる不安は、ホームページや予約ページに反映されていますか？")) {
-        items.unshift("お客様からよく聞かれる不安は、ホームページや予約ページに反映されていますか？");
-      }
-      return items.slice(0, 5);
-    }
-
-    function getLaterItems(priorities) {
-      const lowNames = priorities.map(function(item) { return item.name; });
-      const base = [
-        "高額な広告費を追加すること",
-        "複雑な会員システムを導入すること",
-        "毎日投稿を前提にしたSNS運用",
-        "大規模なホームページリニューアル",
-        "すべての媒体を一気に始めること",
-        "細かすぎる分析ツールの導入",
-        "目的が曖昧なままクーポン数だけを増やすこと"
-      ];
-
-      if (lowNames.includes("SNS")) {
-        return [
-          "毎日投稿を前提にしたSNS運用",
-          "すべての媒体を一気に始めること",
-          "細かすぎる分析ツールの導入",
-          "高額な広告費を追加すること"
-        ];
-      }
-
-      if (lowNames.includes("Web導線") || lowNames.includes("Google対策")) {
-        return [
-          "大規模なホームページリニューアル",
-          "高額な広告費を追加すること",
-          "すべての媒体を一気に始めること",
-          "複雑な会員システムを導入すること"
-        ];
-      }
-
-      return base.slice(0, 4);
-    }
-
-    function getProposalItems(priorities, data) {
-      const map = {
-        "集客": ["サロン診断レポート", "商談内容をもとにした改善優先順位の整理"],
-        "リピート": ["リピート導線の整理", "商談内容をもとにした改善優先順位の整理"],
-        "客単価": ["メニュー構成・単価設計の見直し", "クーポン・メニュー構成の見直し"],
-        "メニュー設計": ["クーポン・メニュー構成の見直し", "メニュー構成・単価設計の見直し"],
-        "Web導線": ["ホームページ・予約導線改善", "ホットペッパービューティー掲載内容の整理"],
-        "SNS": ["Instagramプロフィール・投稿導線改善", "ホームページ・予約導線改善"],
-        "Google対策": ["Googleビジネスプロフィール整理", "サロン診断レポート"],
-        "運営体制": ["商談内容をもとにした改善優先順位の整理", "リピート導線の整理"]
-      };
-      const items = [];
-      priorities.forEach(function(priority) {
-        (map[priority.name] || []).forEach(function(item) {
-          if (!items.includes(item)) items.push(item);
-        });
-      });
-      if (data.listingIssue && !items.includes("ホットペッパービューティー掲載内容の整理")) {
-        items.unshift("ホットペッパービューティー掲載内容の整理");
-      }
-      if (!items.includes("サロン診断レポート")) {
-        items.push("サロン診断レポート");
-      }
-      return items.slice(0, 5);
-    }
-
-    function buildResult(data) {
-      const scores = calculateScores(data);
-      const priorities = getPriorityCategories(scores, data.mainConcern);
-      const strengths = getStrengthCategories(scores);
-      return {
-        data: data,
-        scores: scores,
-        strengths: strengths,
-        priorities: priorities,
-        summary: createSummary(data, priorities),
-        questions: getDeepDiveQuestions(priorities, data),
-        checks: getCheckItems(priorities),
-        later: getLaterItems(priorities),
-        proposals: getProposalItems(priorities, data)
-      };
-    }
-
-    function scoreStatus(score, isPriority) {
-      if (isPriority) return "優先して確認";
-      if (score >= 50) return "比較的整っている";
-      if (score >= 25) return "確認するとよさそう";
-      return "商談時に確認したい項目";
-    }
-
-    function renderList(element, items, prefix) {
-      element.innerHTML = "";
-      items.forEach(function(item) {
-        const li = document.createElement("li");
-        li.textContent = prefix ? prefix + item : item;
-        element.appendChild(li);
-      });
-    }
-
-    function renderResult(result) {
-      latestResult = result;
-      summaryText.textContent = result.summary;
-
-      const priorityNames = result.priorities.map(function(item) { return item.name; });
-      scoreGrid.innerHTML = "";
-      categories.forEach(function(category) {
-        const score = result.scores[category];
-        const isPriority = priorityNames.includes(category);
-        const card = document.createElement("div");
-        card.className = "score-item" + (isPriority ? " is-priority" : "");
-        card.innerHTML =
-          '<div class="score-top">' +
-            '<span class="score-name"></span>' +
-            '<span class="score-value"></span>' +
-          '</div>' +
-          '<div class="score-bar" aria-hidden="true"><div class="score-fill"></div></div>' +
-          '<div class="score-status"></div>';
-        card.querySelector(".score-name").textContent = category;
-        card.querySelector(".score-value").textContent = score + "点";
-        card.querySelector(".score-fill").style.width = score + "%";
-        card.querySelector(".score-status").textContent = scoreStatus(score, isPriority);
-        scoreGrid.appendChild(card);
-      });
-
-      strengthList.innerHTML = "";
-      result.strengths.forEach(function(strength, index) {
-        const li = document.createElement("li");
-        li.className = "priority-card is-good";
-        li.innerHTML =
-          '<div class="priority-title"><span class="priority-number"></span><span></span></div>' +
-          '<div></div>';
-        li.querySelector(".priority-number").textContent = index + 1;
-        li.querySelector(".priority-title span:last-child").textContent = strength.name + "（" + strength.score + "点）";
-        li.querySelector("div:last-child").textContent = "入力内容から見ると、現時点では比較的整っている項目として考えられます。商談時には、この強みをどのように活かすか確認するとよさそうです。";
-        strengthList.appendChild(li);
-      });
-
-      priorityList.innerHTML = "";
-      result.priorities.forEach(function(priority, index) {
-        const li = document.createElement("li");
-        li.className = "priority-card";
-        li.innerHTML =
-          '<div class="priority-title"><span class="priority-number"></span><span></span></div>' +
-          '<div></div>';
-        li.querySelector(".priority-number").textContent = index + 1;
-        li.querySelector(".priority-title span:last-child").textContent = priority.name + "（" + priority.score + "点）";
-        li.querySelector("div:last-child").textContent = categoryDescriptions[priority.name];
-        priorityList.appendChild(li);
-      });
-
-      renderList(questionList, result.questions);
-      renderList(checkList, result.checks);
-      renderList(laterList, result.later.map(function(item) {
-        return item + "は、現時点では後回しでもよい可能性があります。";
-      }));
-      renderList(proposalList, result.proposals);
-      renderList(supportList, supportItems);
-
-      copyMessage.classList.remove("is-visible");
-      resultArea.classList.add("is-visible");
-      resultArea.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    // メール本文へそのまま貼り付けやすい、装飾を抑えたテキストを生成します。
-    function generateEmailText(result) {
-      const data = result.data;
-      const subjectName = data.salonName ? data.salonName + "様" : "サロン様";
-      const lines = [];
-
-      lines.push("件名案：");
-      lines.push("【サロンのお悩み整理シート】" + subjectName + " 初回相談メモ");
-      lines.push("");
-      lines.push("本文：");
-      lines.push("");
-      lines.push("本日はお時間をいただき、ありがとうございました。");
-      lines.push("お話しいただいた内容をもとに、現時点での整理内容を以下にまとめます。");
-      lines.push("");
-      lines.push("※本内容は、商談時点でのヒアリング内容をもとにした整理メモです。");
-      lines.push("正確な経営診断や成果保証ではなく、今後の改善方針を検討するための参考情報としてご確認ください。");
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 基本情報");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("店舗名：" + toDisplay(data.salonName));
-      lines.push("エリア：" + toDisplay(data.area));
-      lines.push("業種：" + toDisplay(data.businessType));
-      lines.push("開業年数：" + toDisplay(data.yearsOpen));
-      lines.push("客単価：" + toDisplay(data.averageSpendRaw));
-      lines.push("月商：" + toDisplay(data.monthlySalesRaw));
-      lines.push("席数：" + toDisplay(data.seatsRaw));
-      lines.push("スタッフ数：" + toDisplay(data.staffRaw));
-      lines.push("月の新規客数：" + toDisplay(data.newCustomersRaw));
-      lines.push("月のリピート客数：" + toDisplay(data.repeatCustomersRaw));
-      lines.push("主な集客媒体：" + toDisplay(data.channels));
-      lines.push("主な予約経路：" + toDisplay(data.reservationRoutes));
-      lines.push("現在の広告費：" + toDisplay(data.adCostRaw));
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 現在のお悩み・目標");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("一番のお悩み：" + toDisplay(data.mainConcern));
-      lines.push("目標：" + toDisplay(data.goal));
-      lines.push("一番売りたいメニュー：" + toDisplay(data.mainMenu));
-      lines.push("一番利益を残したいメニュー：" + toDisplay(data.profitMenu));
-      lines.push("Google口コミの状況：" + toDisplay(data.googleReviews));
-      lines.push("ホームページ・ホットペッパービューティーの掲載内容で困っていること：" + toDisplay(data.listingIssue));
-      lines.push("お客様からよく聞かれる不安や質問：" + toDisplay(data.customerQuestions));
-      lines.push("現在の課題・相談内容：" + toDisplay(data.memo));
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 状態スコア");
-      lines.push("━━━━━━━━━━━━━━");
-      categories.forEach(function(category) {
-        lines.push(category + "：" + result.scores[category] + "点");
-      });
-      lines.push("");
-      lines.push("※点数が高いほど、現時点で比較的整っている項目です。");
-      lines.push("※点数が低い項目ほど、優先的に整理したいポイントです。");
-      lines.push("※このスコアは、入力内容をもとにした簡易整理です。");
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 比較的整っている項目");
-      lines.push("━━━━━━━━━━━━━━");
-      result.strengths.forEach(function(strength, index) {
-        lines.push((index + 1) + ". " + strength.name + "：" + strength.score + "点");
-      });
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 優先して整理したい課題");
-      lines.push("━━━━━━━━━━━━━━");
-      result.priorities.forEach(function(priority, index) {
-        lines.push((index + 1) + ". " + priority.name + "：" + categoryDescriptions[priority.name]);
-      });
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 商談時に深掘りしたい質問");
-      lines.push("━━━━━━━━━━━━━━");
-      result.questions.forEach(function(item) {
-        lines.push("・" + item);
-      });
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 今すぐ確認したいこと");
-      lines.push("━━━━━━━━━━━━━━");
-      result.checks.forEach(function(item) {
-        lines.push("・" + item);
-      });
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 後回しでもよい可能性があること");
-      lines.push("━━━━━━━━━━━━━━");
-      result.later.forEach(function(item) {
-        lines.push("・" + item + "は、現時点では後回しでもよい可能性があります。");
-      });
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ 次回ご提案できる候補");
-      lines.push("━━━━━━━━━━━━━━");
-      result.proposals.forEach(function(item) {
-        lines.push("・" + item);
-      });
-      lines.push("");
-      lines.push("━━━━━━━━━━━━━━");
-      lines.push("■ ウィルネクストで支援できる内容");
-      lines.push("━━━━━━━━━━━━━━");
-      supportItems.forEach(function(item) {
-        lines.push("・" + item);
-      });
-      lines.push("");
-      lines.push("今後、必要に応じて、より具体的な改善案をご提案いたします。");
-      lines.push("引き続きよろしくお願いいたします。");
-      lines.push("");
-      lines.push("ウィルネクスト合同会社");
-
-      return lines.join("\n");
+本日の整理内容が、今後の確認の参考になれば幸いです。
+ウィルネクスト合同会社`;
     }
 
     async function copyEmailText() {
-      if (!latestResult) return;
-
-      const text = generateEmailText(latestResult);
+      const text = buildEmailText();
       try {
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(text);
         } else {
-          copyFallback.value = text;
-          copyFallback.focus();
-          copyFallback.select();
-          const copied = document.execCommand("copy");
-          copyFallback.blur();
-          if (!copied) throw new Error("Fallback copy failed");
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          const copied = document.execCommand('copy');
+          textarea.remove();
+          if (!copied) throw new Error('Copy failed');
         }
-        copyMessage.textContent = "コピーしました。メール本文に貼り付けてご利用ください。";
-        copyMessage.classList.add("is-visible");
-      } catch (error) {
-        copyFallback.value = text;
-        copyMessage.textContent = "コピーできませんでした。結果欄を選択して手動でコピーしてください。";
-        copyMessage.classList.add("is-visible");
+        copyMessage.textContent = 'コピーしました。メール本文に貼り付けてご利用ください。';
+      } catch (_error) {
+        copyMessage.textContent = 'コピーできませんでした。結果欄を選択して手動でコピーしてください。';
       }
+      copyMessage.classList.add('is-visible');
     }
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      const data = getFormData();
-      const result = buildResult(data);
-      renderResult(result);
-    });
-
-    copyButton.addEventListener("click", copyEmailText);
-
-    editButton.addEventListener("click", function() {
-      document.getElementById("formArea").scrollIntoView({ behavior: "smooth", block: "start" });
-      document.getElementById("salonName").focus({ preventScroll: true });
-    });
-
-    resetButton.addEventListener("click", function() {
-      const ok = window.confirm("入力内容と診断結果をリセットします。よろしいですか？");
-      if (!ok) return;
+    function resetDiagnosis() {
+      if (!window.confirm('入力内容と診断結果をリセットします。よろしいですか？')) return;
       form.reset();
-      latestResult = null;
-      resultArea.classList.remove("is-visible");
-      copyMessage.classList.remove("is-visible");
-      document.getElementById("top").scrollIntoView({ behavior: "smooth", block: "start" });
+      clearUnansweredStates();
+      result.classList.remove('is-visible');
+      delete result.dataset.result;
+      copyMessage.classList.remove('is-visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    form.addEventListener('change', clearUnansweredStates);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      clearUnansweredStates();
+      const { scores, missing } = collectScores();
+      if (missing.length) {
+        const firstMissing = document.querySelector(`[data-question="${missing[0]}"]`);
+        document.querySelectorAll('[data-question]').forEach(question => {
+          if (missing.includes(question.dataset.question)) question.classList.add('is-unanswered');
+        });
+        formError.classList.add('is-visible');
+        firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      renderResults(scores);
+      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    supportItems.forEach(function(item) {
-      const li = document.createElement("li");
-      li.textContent = item;
-      supportList.appendChild(li);
-    });
+    document.getElementById('copy-button').addEventListener('click', copyEmailText);
+    document.getElementById('reset-button').addEventListener('click', resetDiagnosis);
+    renderQuestions();
   </script>
 </body>
 </html>
