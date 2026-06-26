@@ -349,6 +349,7 @@
     ];
 
     const supportItems = [
+      '集客支援（ホットペッパービューティー・Instagram・Googleマップ・ホームページ導線の整理）',
       'サロン診断レポートの作成',
       'ホームページ・予約導線の改善',
       'ホットペッパービューティー掲載内容の整理',
@@ -473,10 +474,14 @@
       const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
       const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
       const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性があり、現在の強みとして活かせる点を確認するとよさそうです。`).join('\n\n');
-      return `件名案：【美容サロン向け 経営・集客 詳細診断】診断結果メモ
+      return `宛先案：
+[consul.will.next@gmail.com](mailto:consul.will.next@gmail.com)
+
+件名案：【美容サロン向け 経営・集客 詳細診断】診断結果メモ
 
 本日の整理内容
-美容サロン向け 経営・集客 詳細診断の結果を共有します。
+本日はお時間をいただき、ありがとうございました。
+入力内容をもとに、経営・集客状況の詳細診断結果を以下にまとめます。
 
 注意書き
 本内容は選択式の回答をもとにした簡易整理です。正確な経営診断や成果保証ではなく、相談時に優先して確認したい領域を見つけるための目安としてご利用ください。
@@ -523,7 +528,7 @@ ${supportItems.map(item => `・${item}`).join('\n')}
           textarea.remove();
           if (!copied) throw new Error('Copy failed');
         }
-        copyMessage.textContent = 'コピーしました。メール本文に貼り付けてご利用ください。';
+        copyMessage.textContent = 'コピーしました。メール本文に貼り付けてご利用ください。メール本文内に「宛先案：[consul.will.next@gmail.com](mailto:consul.will.next@gmail.com)」の記載がありますので、コピーしてメールの宛先欄に貼り付けてください。';
       } catch (_error) {
         copyMessage.textContent = 'コピーできませんでした。結果欄を選択して手動でコピーしてください。';
       }
