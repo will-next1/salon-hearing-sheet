@@ -25,7 +25,6 @@
       --radius: 8px;
     }
 
-```
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -155,8 +154,6 @@ h3 { font-size: 1.1rem; margin: 0; }
   .cta { padding: 34px; }
   .cta .button { width: auto; }
 }
-```
-
   </style>
 </head>
 <body>
@@ -186,7 +183,6 @@ h3 { font-size: 1.1rem; margin: 0; }
         </div>
       </section>
 
-```
   <form id="diagnosis-form" novalidate>
     <div id="question-sections"></div>
     <p class="error-message" id="form-error" role="alert">未回答の項目があります。すべて選択してください。</p>
@@ -263,8 +259,6 @@ h3 { font-size: 1.1rem; margin: 0; }
     </div>
   </section>
 </div>
-```
-
   </main>
 
   <footer class="footer"><div class="wrap">ウィルネクスト合同会社</div></footer>
@@ -480,10 +474,14 @@ h3 { font-size: 1.1rem; margin: 0; }
           <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
           <p class="item-copy">${item.description}</p>
         </li>`).join('');
-      document.getElementById('strength-list').innerHTML = strengths.map(item => `
+      const strengthCopies = [
+        '現在の強みとして活かせる状態に近い可能性があります。<br>この領域を維持しながら、他の課題領域にも良い影響が出るように整えていきましょう。',
+        'できている可能性がありますので、この強みを数字につなげていきましょう。<br>さらに成果につながる強みとして活かせるように、ブラッシュアップが必要です。'
+      ];
+      document.getElementById('strength-list').innerHTML = strengths.map((item, index) => `
         <li>
           <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
-          <p class="item-copy">できている可能性がありますので、この強みを数字につなげていきましょう。<br>強みとして活かせるように、ブラッシュアップが必要です。</p>
+          <p class="item-copy">${strengthCopies[index] || strengthCopies[1]}</p>
         </li>`).join('');
       document.getElementById('insight-copy').textContent = createInsight(priorities);
       result.dataset.result = JSON.stringify({ totalScore, rank, scoreData, priorities, strengths });
