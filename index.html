@@ -476,7 +476,7 @@
       document.getElementById('strength-list').innerHTML = strengths.map(item => `
         <li>
           <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
-          <p class="item-copy">比較的整っている可能性があります。現在の強みとして活かせる点を、実際の運用内容とあわせて確認するとよさそうです。</p>
+          <p class="item-copy">比較的整っている可能性はありますが、強みとして活かせるように、ブラッシュアップが必要です。</p>
         </li>`).join('');
       document.getElementById('insight-copy').textContent = createInsight(priorities);
       result.dataset.result = JSON.stringify({ totalScore, rank, scoreData, priorities, strengths });
@@ -490,7 +490,7 @@
       const { totalScore, rank, scoreData, priorities, strengths } = resultData;
       const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
       const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
-      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性はありますが、強みとして活かせるようブラッシュアップが必要です。`).join('\n\n');
+      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性はありますが、強みとして活かせるように、ブラッシュアップが必要です。`).join('\n\n');
       return `宛先：
 consul.will.next@gmail.com
 
