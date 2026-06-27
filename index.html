@@ -483,7 +483,7 @@ h3 { font-size: 1.1rem; margin: 0; }
       document.getElementById('strength-list').innerHTML = strengths.map(item => `
         <li>
           <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
-          <p class="item-copy">できている可能性がありますので、この強みを数字につなげていきましょう。</p>
+          <p class="item-copy">できている可能性がありますので、この強みを数字につなげていきましょう。<br>強みとして活かせるように、ブラッシュアップが必要です。</p>
         </li>`).join('');
       document.getElementById('insight-copy').textContent = createInsight(priorities);
       result.dataset.result = JSON.stringify({ totalScore, rank, scoreData, priorities, strengths });
