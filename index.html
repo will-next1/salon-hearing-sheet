@@ -364,13 +364,13 @@
 
     const supportItems = [
       '集客支援（ホットペッパービューティー・Instagram・Googleマップ・ホームページ導線の整理）',
-      'サロン診断レポートの作成',
+      '課題や強みが分かる、サロン診断レポートの作成',
+      '採用支援（ホームページ内'リジョブ求人媒体の活用支援）,
       'ホームページ・予約導線の改善',
       'ホットペッパービューティー掲載内容の整理',
-      'クーポン・メニュー構成の見直し',
+      'クーポン・メニュー構成・単価設定の見直し',
       'Instagramプロフィール・投稿導線改善',
-      'Googleビジネスプロフィール整理',
-      'メニュー構成・単価設計の見直し',
+      'Googleビジネスプロフィール整理・MEO対策',
       'リピート導線の整理',
       '小規模サロン向けの実務的な運営支援'
     ];
@@ -489,7 +489,7 @@
       const { totalScore, rank, scoreData, priorities, strengths } = resultData;
       const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
       const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
-      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性があり、現在の強みとして活かせる点を確認するとよさそうです。`).join('\n\n');
+      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性がありますが、現在の強みとして活かせるようにブラッシュアップする必要があります。`).join('\n\n');
       return `宛先：
 consul.will.next@gmail.com
 
@@ -525,7 +525,7 @@ ${createInsight(priorities)}
 ${supportItems.map(item => `・${item}`).join('\n')}
 
 診断結果を確認後、ウィルネクストより追ってご連絡いたします。
-今しばらくお待ちください。`;
+今しばらくお待ちくださいませ。`;
     }
 
     async function copyEmailText() {
