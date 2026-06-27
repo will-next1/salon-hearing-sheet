@@ -162,7 +162,7 @@
       <div>
         <h1>美容サロン向け<br>経営・集客 詳細診断</h1>
         <p class="lead">集客・リピート・客単価・予約導線・メニュー設計を、選択式で詳しく確認できます。</p>
-        <p class="hero-copy">この詳細診断は、美容サロンの経営・集客状況を選択式で整理し、優先して確認したい課題を見える化するための簡易診断です。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
+        <p class="hero-copy">この詳細診断は、美容サロンの経営・集客状況を選択式で整理し、優先して確認したい課題を見える化するための診断です。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
       </div>
       <p class="notice">本診断は、正確な経営診断や成果保証ではありません。現在の状況を整理し、優先して確認したい領域を見つけるための目安としてご利用ください。</p>
       <a class="button button-gold" href="#diagnosis">診断をはじめる</a>
@@ -490,7 +490,7 @@
       const { totalScore, rank, scoreData, priorities, strengths } = resultData;
       const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
       const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
-      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性があり、現在の強みとして活かせる点を確認するとよさそうです。`).join('\n\n');
+      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性はありますが、強みとして活かせるようブラッシュアップが必要です。`).join('\n\n');
       return `宛先：
 consul.will.next@gmail.com
 
