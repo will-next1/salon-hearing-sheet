@@ -1,0 +1,670 @@
+<!doctype html>
+<!--
+  ウィルネクスト合同会社
+  美容サロン向け 経営・集客 詳細診断ページ
+  正式ファイル：detail-diagnosis.html
+  今後このページを修正する場合は、このファイルを編集してください。
+-->
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美容サロン向け 経営・集客 詳細診断 | ウィルネクスト合同会社</title>
+  <style>
+    :root {
+      --navy: #14263d;
+      --navy-soft: #243d5a;
+      --gold: #b69248;
+      --gold-pale: #f2e8d2;
+      --beige: #f7f3ec;
+      --greige: #7c7469;
+      --ink: #27313d;
+      --muted: #66707b;
+      --line: #ded7ca;
+      --white: #ffffff;
+      --alert: #a94736;
+      --alert-bg: #fbefeb;
+      --success: #2f6b59;
+      --success-bg: #eaf4ef;
+      --shadow: 0 14px 32px rgba(20, 38, 61, .09);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--beige);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", "YuGothic", Meiryo, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero { background: #fff url("images/detail-diagnosis-hero-bg.png") center/cover no-repeat; color: #17365D; padding: 46px 0 52px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: #17365D; font-weight: 800; font-size: .88rem; letter-spacing: .08em; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
+    .brand::before { content: ""; width: 28px; height: 1px; background: #C9A45B; }
+    .hero-grid { display: grid; gap: 24px; }
+    h1 { margin: 18px 0 14px; font-size: clamp(2rem, 6vw, 3.25rem); line-height: 1.18; letter-spacing: 0; color: #17365D; font-weight: 800; text-shadow: 0 1px 0 rgba(255,255,255,.8); }
+    .lead { margin: 0; font-size: clamp(1rem, 2.5vw, 1.22rem); color: #2B4E73; font-weight: 800; line-height: 1.75; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
+    .hero-copy { max-width: 880px; margin: 20px 0 0; color: #44566C; font-size: .96rem; font-weight: 500; line-height: 1.9; text-shadow: 0 1px 0 rgba(255,255,255,.55); }
+    .notice { max-width: 980px; border-left: 3px solid #C9A45B; background: rgba(247,244,238,.78); border-top: 1px solid rgba(199,182,156,.22); border-right: 1px solid rgba(199,182,156,.18); border-bottom: 1px solid rgba(199,182,156,.18); padding: 13px 16px; color: #5C6A79; font-size: .87rem; font-weight: 500; backdrop-filter: blur(4px); }
+    .hero .button-gold { background: #C7A04A; color: #132D4F; box-shadow: 0 10px 22px rgba(199,160,74,.24); }
+    .hero .button-gold:hover { background: #B78E38; }
+
+    .section-connector {
+      width: 100%;
+      height: 78px;
+      background-image: url("images/柔らかな光と金色の霞.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      margin-top: -8px;
+      margin-bottom: -8px;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+    }
+    main {
+      padding: 28px 0 52px;
+      background-color: #f7f3ec;
+      background-image: url("images/diagnosis-page-bg.jpg");
+      background-size: 850px auto;
+      background-position: top center;
+      background-repeat: repeat;
+    }
+    .intro-card, .result-card, .category, .support-section { background: rgba(255, 255, 255, .92); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .intro-card { padding: 22px; margin-bottom: 22px; }
+    h2, h3 { color: var(--navy); letter-spacing: 0; line-height: 1.45; }
+    h2 { font-size: clamp(1.35rem, 3vw, 1.7rem); margin: 0 0 8px; }
+    h3 { font-size: 1.1rem; margin: 0; }
+    .section-note { color: var(--muted); font-size: .9rem; margin: 0; }
+    .answer-guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+    .guide-item { padding: 10px; border: 1px solid var(--line); background: #fcfaf6; font-size: .84rem; color: var(--greige); }
+    .guide-item strong { display: block; color: var(--navy); font-size: .92rem; }
+    .error-message, .copy-message { display: none; margin: 18px 0; padding: 12px 14px; border-radius: 4px; font-weight: 700; font-size: .92rem; }
+    .error-message { color: var(--alert); background: var(--alert-bg); border: 1px solid #efc8c0; }
+    .copy-message { color: var(--success); background: var(--success-bg); border: 1px solid #bedbcf; }
+    .error-message.is-visible, .copy-message.is-visible { display: block; }
+
+    .category { overflow: hidden; margin: 18px 0; }
+    .category-header { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: #faf7f0; border-bottom: 1px solid var(--line); }
+    .category-number { flex: 0 0 auto; display: grid; place-items: center; width: 30px; height: 30px; background: var(--navy); color: var(--white); border-radius: 50%; font-size: .82rem; font-weight: 800; }
+    .category-body { padding: 4px 18px 18px; }
+    .question { padding: 18px 0; border-bottom: 1px solid #e9e3da; }
+    .question:last-child { border-bottom: 0; padding-bottom: 0; }
+    .question.is-unanswered { padding-left: 10px; border-left: 3px solid var(--alert); }
+    .question-text { margin: 0 0 12px; color: var(--ink); font-weight: 700; line-height: 1.55; }
+    .question-index { color: var(--gold); margin-right: 5px; }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .choice { position: relative; display: flex; align-items: center; min-height: 48px; padding: 9px 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: .84rem; transition: .16s ease; }
+    .choice:hover { border-color: var(--gold); background: #fffcf6; }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice:has(input:checked) { color: var(--navy); border-color: var(--navy); background: #eef3f7; box-shadow: inset 0 0 0 1px var(--navy); font-weight: 700; }
+    .choice-letter { flex: 0 0 auto; display: grid; place-items: center; width: 22px; height: 22px; margin-right: 7px; border-radius: 50%; border: 1px solid currentColor; font-size: .7rem; font-weight: 800; }
+
+    .actions { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border: 1px solid transparent; border-radius: 4px; padding: 12px 20px; text-decoration: none; font-weight: 800; text-align: center; transition: .16s ease; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { background: var(--navy); color: var(--white); box-shadow: 0 8px 18px rgba(20, 38, 61, .18); }
+    .button-primary:hover { background: var(--navy-soft); }
+    .button-gold { background: var(--gold); color: #1d2731; }
+    .button-gold:hover { background: #c9a55c; }
+    .button-outline { background: var(--white); color: var(--navy); border-color: var(--navy); }
+    .button-outline:hover { background: #f1f5f8; }
+
+    #result { display: none; margin-top: 38px; }
+    #result.is-visible { display: block; }
+    .result-card { padding: 22px; margin-bottom: 20px; }
+    .result-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
+    .eyebrow { margin: 0 0 4px; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
+    .score-circle { flex: 0 0 auto; display: grid; place-items: center; width: 96px; height: 96px; border: 5px solid var(--gold); border-radius: 50%; background: #fffcf7; color: var(--navy); font-weight: 800; line-height: 1.05; text-align: center; }
+    .score-circle strong { display: block; font-size: 1.65rem; }
+    .score-circle span { font-size: .7rem; }
+    .rank-box { background: #faf7f0; border-left: 4px solid var(--gold); padding: 14px; }
+    .rank-title { color: var(--navy); font-size: 1.12rem; font-weight: 800; }
+    .rank-copy { margin: 4px 0 0; color: var(--muted); font-size: .92rem; }
+    .score-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
+    .score-row { display: grid; grid-template-columns: 116px 1fr 42px; align-items: center; gap: 9px; font-size: .88rem; }
+    .score-name { color: var(--navy); font-weight: 700; }
+    .bar { overflow: hidden; height: 10px; background: #e9e4dc; border-radius: 999px; }
+    .bar > span { display: block; height: 100%; background: var(--gold); border-radius: inherit; }
+    .score-value { text-align: right; color: var(--navy); font-weight: 800; }
+    .result-note { margin: 18px 0 0; padding: 12px 14px; background: #f6f3ed; color: var(--muted); font-size: .85rem; }
+
+    .result-columns { display: grid; gap: 20px; }
+    .priority-list, .strength-list, .support-list { list-style: none; padding: 0; margin: 16px 0 0; }
+    .priority-list { counter-reset: priority; }
+    .priority-list li { position: relative; padding: 15px 0 15px 50px; border-bottom: 1px solid var(--line); }
+    .priority-list li:last-child, .strength-list li:last-child { border-bottom: 0; }
+    .priority-list li::before { counter-increment: priority; content: counter(priority); position: absolute; top: 16px; left: 0; display: grid; place-items: center; width: 32px; height: 32px; background: var(--navy); color: var(--white); border-radius: 50%; font-size: .78rem; font-weight: 800; }
+    .item-title { display: flex; justify-content: space-between; gap: 10px; color: var(--navy); font-weight: 800; }
+    .item-score { color: var(--gold); white-space: nowrap; }
+    .item-copy { margin: 5px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    .strength-list li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .insight { margin: 0; color: var(--ink); }
+    .insight strong { color: var(--navy); }
+    .cta { background: var(--navy); color: var(--white); border-radius: var(--radius); padding: 25px 22px; box-shadow: var(--shadow); }
+    .cta h2 { color: var(--white); }
+    .cta p { color: #d9e0e6; margin: 10px 0 0; font-size: .92rem; }
+    .cta .button { margin-top: 18px; width: 100%; }
+    .consult-guide { display: none; margin-top: 16px; padding: 16px; background: #edf4ed; color: var(--navy); border-left: 4px solid #739373; }
+    .consult-guide.is-visible { display: block; }
+    .cta .consult-guide p { margin: 0; color: var(--navy); font-weight: 800; }
+    .consult-guide ol { margin: 10px 0 0; padding-left: 1.3em; color: var(--ink); font-size: .9rem; }
+    .consult-guide li + li { margin-top: 5px; }
+    .support-section { padding: 22px; margin-top: 20px; }
+    .support-list { display: grid; gap: 8px; }
+    .support-list li { position: relative; padding-left: 20px; color: var(--ink); font-size: .9rem; }
+    .support-list li::before { content: ""; position: absolute; top: .72em; left: 2px; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+    .result-actions { display: grid; gap: 10px; margin-top: 20px; }
+    .footer {
+      padding: 52px 0 36px;
+      color: #14263d;
+      text-align: center;
+      background-color: #f7f3ec;
+      background-image: url("images/footer-soft-gold-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-top: 1px solid rgba(198, 164, 118, .35);
+    }
+    .footer-inner { display: grid; gap: 12px; }
+    .footer-en { margin: 0; color: #b69248; font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+    .footer h2 { margin: 4px 0; color: #14263d; font-size: 1.45rem; line-height: 1.4; }
+    .footer-copy { margin: 0; color: #17365D; font-size: 1rem; font-weight: 700; line-height: 1.7; }
+    .footer-label { margin: 8px 0 6px; color: #b69248; font-weight: 800; font-size: .82rem; letter-spacing: .08em; }
+    .footer-contact p { margin: 4px 0; }
+    .footer-contact a { color: #14263d; font-weight: 700; text-decoration: none; }
+    .footer-contact a:hover { text-decoration: underline; }
+    .footer-copyright { margin: 14px 0 0; color: #7c7469; font-size: .75rem; }
+
+    @media (min-width: 680px) {
+      .hero { padding: 54px 0 62px; }
+      .section-connector { height: 96px; margin-top: -12px; margin-bottom: -12px; }
+      .section-connector {
+      width: 100%;
+      height: 78px;
+      background-image: url("images/柔らかな光と金色の霞.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      margin-top: -8px;
+      margin-bottom: -8px;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+    }
+    main { padding-top: 36px; }
+      .intro-card, .result-card, .support-section { padding: 30px; }
+      .category-header { padding: 18px 24px; }
+      .category-body { padding: 6px 24px 24px; }
+      .answer-guide { grid-template-columns: repeat(4, 1fr); }
+      .choices { grid-template-columns: repeat(4, 1fr); }
+      .choice { min-height: 54px; }
+      .actions { flex-direction: row; justify-content: center; }
+      .actions .button { min-width: 260px; }
+      .score-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+      .result-columns { grid-template-columns: 1.2fr .8fr; }
+      .result-actions { grid-template-columns: 1fr 1fr; }
+      .cta { padding: 34px; }
+      .cta .button { width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="brand">WILL NEXT LLC.</div>
+      <div>
+        <h1>美容サロン向け<br>経営・集客 詳細診断</h1>
+        <p class="lead">集客・リピート・客単価・予約導線・メニュー設計を、選択式で詳しく確認できます。</p>
+        <p class="hero-copy">この詳細診断は、美容サロンの経営・集客状況を選択式で整理し、優先して確認したい課題を見える化するための簡易診断です。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
+      </div>
+      <p class="notice">本診断は、正確な経営診断や成果保証ではありません。現在の状況を整理し、優先して確認したい領域を見つけるための目安としてご利用ください。</p>
+    </div>
+  </header>
+
+  <section class="section-connector" aria-hidden="true"></section>
+
+  <main>
+    <div class="wrap">
+      <section class="intro-card" id="diagnosis" aria-labelledby="diagnosis-title">
+        <h2 id="diagnosis-title">現在の状況を選んでください</h2>
+        <p class="section-note">各質問について、現時点で最も近い選択肢を1つ選んでください。すべての回答はこのページ内だけで利用され、外部には送信されません。</p>
+        <div class="answer-guide" aria-label="回答と点数の目安">
+          <div class="guide-item"><strong>A. できている</strong>3点</div>
+          <div class="guide-item"><strong>B. ある程度できている</strong>2点</div>
+          <div class="guide-item"><strong>C. あまりできていない</strong>1点</div>
+          <div class="guide-item"><strong>D. できていない / 分からない</strong>0点</div>
+        </div>
+      </section>
+
+      <form id="diagnosis-form" novalidate>
+        <div id="question-sections"></div>
+        <p class="error-message" id="form-error" role="alert">未回答の項目があります。すべて選択してください。</p>
+        <div class="actions">
+          <button class="button button-primary" type="submit">診断する</button>
+        </div>
+      </form>
+
+      <section id="result" aria-live="polite" aria-labelledby="result-title">
+        <div class="result-card">
+          <div class="result-heading">
+            <div>
+              <p class="eyebrow">DIAGNOSIS RESULT</p>
+              <h2 id="result-title">診断結果</h2>
+              <p class="section-note">現在の回答をもとにした、優先確認ポイントの整理です。</p>
+            </div>
+            <div class="score-circle" aria-label="総合診断スコア"><strong id="total-score">0</strong><span>/ 100点</span></div>
+          </div>
+          <div class="rank-box">
+            <div class="rank-title" id="rank-title">-</div>
+            <p class="rank-copy" id="rank-copy"></p>
+          </div>
+          <h3 style="margin-top:24px;">カテゴリ別スコア</h3>
+          <div class="score-grid" id="score-grid"></div>
+          <p class="result-note">このスコアは、選択内容をもとにした簡易整理です。正確な経営診断ではなく、相談時に優先して確認したい項目を見つけるための目安としてご利用ください。</p>
+        </div>
+
+        <div class="result-columns">
+          <section class="result-card" aria-labelledby="priority-title">
+            <p class="eyebrow">PRIORITY CHECK</p>
+            <h2 id="priority-title">優先改善領域 トップ3</h2>
+            <p class="section-note">現時点では、優先的に見直す候補として考えられます。</p>
+            <ol class="priority-list" id="priority-list"></ol>
+          </section>
+          <section class="result-card" aria-labelledby="strength-title">
+            <p class="eyebrow">CURRENT STRENGTHS</p>
+            <h2 id="strength-title">比較的整っている領域</h2>
+            <p class="section-note">現在の強みとして活かせる可能性があります。</p>
+            <ul class="strength-list" id="strength-list"></ul>
+          </section>
+        </div>
+
+        <section class="result-card" aria-labelledby="insight-title">
+          <p class="eyebrow">PERSPECTIVE</p>
+          <h2 id="insight-title">課題の見立て</h2>
+          <p class="insight" id="insight-copy"></p>
+        </section>
+
+        <section class="cta" aria-labelledby="cta-title">
+          <h2 id="cta-title">詳しい改善方法は、ウィルネクストで一緒に整理できます</h2>
+          <p>この詳細診断では、現在の経営・集客状況から優先して確認したい領域を整理しています。実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。</p>
+          <button class="button button-gold" type="button" id="consult-button">診断結果をもとに相談する</button>
+          <div class="consult-guide" id="consult-guide" aria-live="polite">
+            <p>下記、診断結果をご自身のメールに貼り付け、送信してください。</p>
+            <ol>
+              <li>「メール用に診断結果をコピーする」ボタンを押してください。</li>
+              <li>コピーされた診断結果をメール本文に貼り付けてください。</li>
+              <li>メール本文内に「宛先：consul.will.next@gmail.com」の記載がありますので、メールの宛先欄に貼り付けてください。</li>
+              <li>内容をご確認のうえ、送信してください。</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="support-section" aria-labelledby="support-title">
+          <p class="eyebrow">HOW WE CAN HELP</p>
+          <h2 id="support-title">ウィルネクストで支援できる内容</h2>
+          <ul class="support-list" id="support-list"></ul>
+        </section>
+
+        <p class="copy-message" id="copy-message" role="status"></p>
+        <div class="result-actions">
+          <button class="button button-primary" type="button" id="copy-button">メール用に診断結果をコピーする</button>
+          <button class="button button-outline" type="button" id="reset-button">最初からやり直す</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+    <footer class="footer">
+    <div class="wrap footer-inner">
+      <p class="footer-en">WILL NEXT LLC.</p>
+      <h2>ウィルネクスト合同会社</h2>
+      <p class="footer-copy">接遇・集客・AI活用はお任せください</p>
+      <div class="footer-contact">
+        <p class="footer-label">ご相談・お問い合わせ</p>
+        <p><a href="mailto:consul.will.next@gmail.com">consul.will.next@gmail.com</a></p>
+        <p><a href="tel:09061881722">090-6188-1722</a></p>
+      </div>
+      <p class="footer-copyright">© 2026 WILL NEXT LLC. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* 質問データ: 内容変更はここで行えます。 */
+    const diagnosisCategories = [
+      {
+        id: 'acquisition', name: '集客',
+        description: '新規のお客様がどの媒体から来ているか、媒体ごとの役割を整理すると改善方針が見えやすくなる可能性があります。',
+        questions: [
+          '新規のお客様がどの媒体から来ているか把握できている',
+          'ホットペッパービューティー以外の集客経路もある',
+          'InstagramやGoogleマップからの来店導線がある',
+          '紹介や口コミによる来店が発生している',
+          '集客媒体ごとの役割を整理できている'
+        ]
+      },
+      {
+        id: 'repeat', name: 'リピート',
+        description: '再来店につながる声かけ、次回予約、来店周期の設計を確認するとよさそうです。',
+        questions: [
+          '次回予約につながる声かけや流れがある',
+          '再来店しやすい周期や提案ができている',
+          '失客しやすいタイミングを把握している',
+          'リピーター向けのメニューや提案がある',
+          'お客様ごとの来店履歴や好みを活用できている'
+        ]
+      },
+      {
+        id: 'unit-price', name: '客単価',
+        description: 'セットメニュー、高単価メニュー、価格ではなく価値を伝える見せ方を整理するとよさそうです。',
+        questions: [
+          '客単価の目標を設定できている',
+          '高単価メニューやセットメニューがある',
+          '価格だけでなく価値が伝わる説明ができている',
+          '単価を上げたいメニューが明確になっている',
+          '安売りに頼りすぎない見せ方ができている'
+        ]
+      },
+      {
+        id: 'menu', name: 'メニュー設計',
+        description: '売りたいメニュー、利益を残したいメニュー、初回のお客様が選びやすいメニュー構成を確認したい項目です。',
+        questions: [
+          '売りたいメニューが分かりやすく掲載されている',
+          '利益を残したいメニューが整理されている',
+          '初めてのお客様が選びやすいメニュー構成になっている',
+          '人気メニューと推したいメニューを分けて考えられている',
+          'クーポンやメニュー名が分かりやすい'
+        ]
+      },
+      {
+        id: 'web', name: 'Web導線',
+        description: 'ホームページ、予約ページ、Instagram、Googleマップから予約までの流れを確認するとよさそうです。',
+        questions: [
+          'ホームページや予約ページで、初めてのお客様が迷わず予約できる',
+          '料金・メニュー・施術時間が分かりやすい',
+          '店舗の強みや雰囲気が伝わる',
+          'Instagram、Googleマップ、予約ページの導線がつながっている',
+          'お客様からよく聞かれる不安がページ上で解消されている'
+        ]
+      },
+      {
+        id: 'hpb', name: 'ホットペッパービューティー',
+        description: 'クーポン、メニューの並び、写真、口コミ、予約前の不安を減らす説明を確認したい項目です。',
+        questions: [
+          'クーポン内容が価格だけでなく価値まで伝わる',
+          'メニュー・クーポンの並び順に意図がある',
+          '写真やデザイン画像がサロンの魅力を伝えている',
+          '口コミ返信や口コミ活用ができている',
+          '予約前に不安を減らす説明が掲載されている'
+        ]
+      },
+      {
+        id: 'google', name: 'Google対策',
+        description: 'Googleビジネスプロフィール、写真、口コミ、営業時間、Googleマップからの予約導線を確認するとよさそうです。',
+        questions: [
+          'Googleビジネスプロフィールの情報が最新になっている',
+          '写真・営業時間・メニュー情報が整っている',
+          'Google口コミが定期的に増えている',
+          '口コミ返信ができている',
+          'Googleマップから予約や問い合わせにつながる導線がある'
+        ]
+      },
+      {
+        id: 'operations', name: '運営体制',
+        description: '席数、スタッフ数、予約枠、数字管理、改善優先順位を確認するとよさそうです。',
+        questions: [
+          '席数・スタッフ数に対して無理のない予約枠になっている',
+          'スタッフごとの役割が整理されている',
+          '忙しい時間帯や空きやすい時間帯を把握している',
+          '売上・客数・単価などの数字を定期的に確認している',
+          '改善すべき課題の優先順位を決められている'
+        ]
+      }
+    ];
+
+    const answerOptions = [
+      { label: 'A. できている', value: 3 },
+      { label: 'B. ある程度できている', value: 2 },
+      { label: 'C. あまりできていない', value: 1 },
+      { label: 'D. できていない / 分からない', value: 0 }
+    ];
+
+    const supportItems = [
+      '集客支援（ホットペッパービューティー・Instagram・Googleマップ・ホームページ導線の整理）',
+      'サロン診断レポートの作成',
+      '接客・接遇改善支援（お客様対応の課題整理・再来につながる接遇設計）',
+      'AI活用支援（サロン課題の整理・改善案作成・発信計画の仕組み化）',
+      'ホームページ・予約導線の改善',
+      'ホットペッパービューティー掲載内容の整理',
+      'クーポン・メニュー構成の見直し',
+      'Instagramプロフィール・投稿導線改善',
+      'Googleビジネスプロフィール整理',
+      'メニュー構成・単価設計の見直し',
+      'リピート導線の整理',
+      '小規模サロン向けの実務的な運営支援'
+    ];
+
+    const rankDefinitions = [
+      { min: 80, rank: 'Aランク', text: '比較的整っている状態。現在の強みを活かしながら、個別に確認すると改善方針が見えやすくなる可能性があります。' },
+      { min: 65, rank: 'Bランク', text: '一部見直しで改善余地がある状態。優先順位を整理すると、次に確認することが明確になりそうです。' },
+      { min: 45, rank: 'Cランク', text: '優先課題を整理したい状態。回答が低めの領域から、実際の内容を個別に確認するとよさそうです。' },
+      { min: 25, rank: 'Dランク', text: '集客・導線の見直し余地が大きい状態。まずはお客様が知ってから予約するまでの流れを整理すると安心です。' },
+      { min: 0, rank: 'Eランク', text: 'まず現状整理から始めたい状態。無理に急がず、確認すべき項目を一つずつ整理することが大切です。' }
+    ];
+
+    const form = document.getElementById('diagnosis-form');
+    const questionSections = document.getElementById('question-sections');
+    const formError = document.getElementById('form-error');
+    const result = document.getElementById('result');
+    const copyMessage = document.getElementById('copy-message');
+    const consultGuide = document.getElementById('consult-guide');
+
+    function renderQuestions() {
+      questionSections.innerHTML = diagnosisCategories.map((category, categoryIndex) => `
+        <section class="category" id="category-${category.id}" aria-labelledby="category-title-${category.id}">
+          <div class="category-header">
+            <span class="category-number">${categoryIndex + 1}</span>
+            <h3 id="category-title-${category.id}">${category.name}</h3>
+          </div>
+          <div class="category-body">
+            ${category.questions.map((question, questionIndex) => {
+              const inputName = `${category.id}-${questionIndex}`;
+              return `
+                <fieldset class="question" data-question="${inputName}">
+                  <legend class="question-text"><span class="question-index">${questionIndex + 1}.</span>${question}</legend>
+                  <div class="choices">
+                    ${answerOptions.map((option, optionIndex) => `
+                      <label class="choice">
+                        <input type="radio" name="${inputName}" value="${option.value}">
+                        <span class="choice-letter">${String.fromCharCode(65 + optionIndex)}</span>
+                        <span>${option.label.replace(/^[A-D]\. /, '')}</span>
+                      </label>
+                    `).join('')}
+                  </div>
+                </fieldset>`;
+            }).join('')}
+          </div>
+        </section>`
+      ).join('');
+      document.getElementById('support-list').innerHTML = supportItems.map(item => `<li>${item}</li>`).join('');
+    }
+
+    function clearUnansweredStates() {
+      document.querySelectorAll('.question.is-unanswered').forEach(item => item.classList.remove('is-unanswered'));
+      formError.classList.remove('is-visible');
+    }
+
+    function collectScores() {
+      const missing = [];
+      const scores = diagnosisCategories.map(category => {
+        const points = category.questions.reduce((sum, _question, index) => {
+          const inputName = `${category.id}-${index}`;
+          const selected = form.querySelector(`input[name="${inputName}"]:checked`);
+          if (!selected) {
+            missing.push(inputName);
+            return sum;
+          }
+          return sum + Number(selected.value);
+        }, 0);
+        return { ...category, score: Math.round((points / 15) * 100), points };
+      });
+      return { scores, missing };
+    }
+
+    function getRank(totalScore) {
+      return rankDefinitions.find(rank => totalScore >= rank.min);
+    }
+
+    function createInsight(priorities) {
+      const names = priorities.map(item => `「${item.name}」`).join('、');
+      const first = priorities[0].name;
+      return `今回の診断では、特に${names}に見直し余地がある可能性があります。まずは「${first}」を起点に、実際の掲載内容・予約までの流れ・日々の運用状況を確認すると、改善の優先順位が整理しやすくなります。具体的な方法は、商圏や競合、現在のメニュー構成などを踏まえて個別に検討するとよさそうです。`;
+    }
+
+    function renderResults(scoreData) {
+      const totalScore = Math.round(scoreData.reduce((sum, item) => sum + item.score, 0) / scoreData.length);
+      const rank = getRank(totalScore);
+      const priorities = [...scoreData].sort((a, b) => a.score - b.score || a.id.localeCompare(b.id)).slice(0, 3);
+      const strengths = [...scoreData].sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, 2);
+
+      document.getElementById('total-score').textContent = totalScore;
+      document.getElementById('rank-title').textContent = `${rank.rank} / ${rank.text.split('。')[0]}`;
+      document.getElementById('rank-copy').textContent = rank.text;
+      document.getElementById('score-grid').innerHTML = scoreData.map(item => `
+        <div class="score-row">
+          <span class="score-name">${item.name}</span>
+          <span class="bar" aria-hidden="true"><span style="width:${item.score}%"></span></span>
+          <span class="score-value">${item.score}点</span>
+        </div>`).join('');
+      document.getElementById('priority-list').innerHTML = priorities.map(item => `
+        <li>
+          <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
+          <p class="item-copy">${item.description}</p>
+        </li>`).join('');
+      document.getElementById('strength-list').innerHTML = strengths.map(item => `
+        <li>
+          <div class="item-title"><span>${item.name}</span><span class="item-score">${item.score}点</span></div>
+          <p class="item-copy">比較的整っている可能性があります。現在の強みとして活かせる点を、実際の運用内容とあわせて確認するとよさそうです。</p>
+        </li>`).join('');
+      document.getElementById('insight-copy').textContent = createInsight(priorities);
+      result.dataset.result = JSON.stringify({ totalScore, rank, scoreData, priorities, strengths });
+      result.classList.add('is-visible');
+      copyMessage.classList.remove('is-visible');
+      consultGuide.classList.remove('is-visible');
+    }
+
+    function buildEmailText() {
+      const resultData = JSON.parse(result.dataset.result || '{}');
+      const { totalScore, rank, scoreData, priorities, strengths } = resultData;
+      const categoryScores = scoreData.map(item => `・${item.name}：${item.score}点`).join('\n');
+      const priorityText = priorities.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n${item.description}`).join('\n\n');
+      const strengthText = strengths.map((item, index) => `${index + 1}. ${item.name}（${item.score}点）\n比較的整っている可能性があり、現在の強みとして活かせる点を確認するとよさそうです。`).join('\n\n');
+      return `宛先：
+consul.will.next@gmail.com
+
+件名案：【美容サロン向け 経営・集客 詳細診断】診断結果メモ
+
+本日の整理内容
+本日はお時間をいただき、ありがとうございました。
+入力内容をもとに、経営・集客状況の詳細診断結果を以下にまとめます。
+
+注意書き
+本内容は選択式の回答をもとにした簡易整理です。正確な経営診断や成果保証ではなく、相談時に優先して確認したい領域を見つけるための目安としてご利用ください。
+
+総合診断スコア：${totalScore}点 / 100点
+診断ランク：${rank.rank}
+${rank.text}
+
+カテゴリ別スコア
+${categoryScores}
+
+優先改善領域 トップ3
+${priorityText}
+
+比較的整っている領域 トップ2
+${strengthText}
+
+課題の見立て
+${createInsight(priorities)}
+
+詳しい改善方法について
+実際の改善方法は、商圏・競合・メニュー構成・ホットペッパービューティー掲載内容・ホームページ・Googleマップ・Instagramなどを確認したうえで、個別に組み立てることが大切です。ウィルネクストでは、現在の状況にあわせて改善の優先順位を一緒に整理できます。
+
+ウィルネクストで支援できる内容
+${supportItems.map(item => `・${item}`).join('\n')}
+
+診断結果を確認後、ウィルネクストより追ってご連絡いたします。
+今しばらくお待ちください。`;
+    }
+
+    async function copyEmailText() {
+      const text = buildEmailText();
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          const copied = document.execCommand('copy');
+          textarea.remove();
+          if (!copied) throw new Error('Copy failed');
+        }
+        copyMessage.textContent = 'コピーしました。メール本文に貼り付けてご利用ください。メール本文内に「宛先：consul.will.next@gmail.com」の記載がありますので、コピーしてメールの宛先欄に貼り付けてください。';
+      } catch (_error) {
+        copyMessage.textContent = 'コピーできませんでした。結果欄を選択して手動でコピーしてください。';
+      }
+      copyMessage.classList.add('is-visible');
+    }
+
+    function resetDiagnosis() {
+      if (!window.confirm('入力内容と診断結果をリセットします。よろしいですか？')) return;
+      form.reset();
+      clearUnansweredStates();
+      result.classList.remove('is-visible');
+      delete result.dataset.result;
+      copyMessage.classList.remove('is-visible');
+      consultGuide.classList.remove('is-visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showConsultGuide() {
+      consultGuide.classList.add('is-visible');
+      consultGuide.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    form.addEventListener('change', clearUnansweredStates);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      clearUnansweredStates();
+      const { scores, missing } = collectScores();
+      if (missing.length) {
+        const firstMissing = document.querySelector(`[data-question="${missing[0]}"]`);
+        document.querySelectorAll('[data-question]').forEach(question => {
+          if (missing.includes(question.dataset.question)) question.classList.add('is-unanswered');
+        });
+        formError.classList.add('is-visible');
+        firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      renderResults(scores);
+      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.getElementById('copy-button').addEventListener('click', copyEmailText);
+    document.getElementById('reset-button').addEventListener('click', resetDiagnosis);
+    document.getElementById('consult-button').addEventListener('click', showConsultGuide);
+    renderQuestions();
+  </script>
+</body>
+</html>
