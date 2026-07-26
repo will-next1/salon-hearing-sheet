@@ -182,7 +182,17 @@
     .footer-contact a { color: #14263d; font-weight: 700; text-decoration: none; }
     .footer-contact a:hover { text-decoration: underline; }
     .footer-copyright { margin: 14px 0 0; color: #7c7469; font-size: .75rem; }
-
+    .global-nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.90); backdrop-filter: blur(12px); border-bottom: 1px solid #e4d7c4; box-shadow: 0 2px 12px rgba(20,38,61,.06); }
+    .global-nav__inner { width: min(1280px, calc(100% - 32px)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
+    .global-nav__brand { display: flex; align-items: center; gap: 8px; color: #17365D; text-decoration: none; white-space: nowrap; }
+    .global-nav__logo { width: 44px; height: 44px; object-fit: contain; flex: 0 0 auto; }
+    .global-nav__title { display: block; color: #1A3050; font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; font-weight: 900; letter-spacing: .12em; line-height: 1.1; }
+    .global-nav__company { display: block; margin-top: 3px; color: #6B7888; font-size: .625rem; font-weight: 700; letter-spacing: 0; line-height: 1.2; }
+    .global-nav__links { display: flex; align-items: center; justify-content: flex-end; gap: clamp(13px, 1.4vw, 22px); margin-left: auto; }
+    .global-nav__links a { color: #2E3440; font-size: .82rem; font-weight: 800; text-decoration: none; white-space: nowrap; padding: 8px 0 6px; border-bottom: 2px solid transparent; }
+    .global-nav__links a:hover, .global-nav__links a.is-current { color: #a87825; border-bottom-color: #a87825; }
+    .global-nav__mobile-button { display: none; }
+    .global-nav__mobile-links { display: none; }
     @media (min-width: 680px) {
       .hero { padding: 54px 0 62px; }
       .section-connector { height: 96px; margin-top: -12px; margin-bottom: -12px; }
@@ -214,9 +224,48 @@
       .cta { padding: 34px; }
       .cta .button { width: auto; }
     }
+    @media (max-width: 767px) {
+      .global-nav__inner { min-height: 68px; width: min(1280px, calc(100% - 32px)); }
+      .global-nav__logo { width: 40px; height: 40px; }
+      .global-nav__title { font-size: 1rem; letter-spacing: .12em; }
+      .global-nav__company { font-size: .6rem; }
+      .global-nav__links { display: none; }
+      .global-nav__mobile-button { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #e4d7c4; border-radius: 999px; background: #fff; color: #1A3050; font-size: 1.25rem; line-height: 1; }
+      .global-nav__mobile-button[aria-expanded="true"] { background: #eef8fc; }
+      .global-nav__mobile-links.is-open { position: absolute; top: 100%; left: 0; right: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 12px 16px 14px; background: rgba(255,255,255,.95); border-top: 1px solid #e4d7c4; border-bottom: 1px solid #e4d7c4; box-shadow: 0 10px 18px rgba(20,38,61,.12); }
+      .global-nav__mobile-links a { display: flex; min-height: 44px; align-items: center; justify-content: center; border: 1px solid #d8c7ad; border-radius: 10px; color: #17365D; font-size: .8rem; font-weight: 800; text-align: center; text-decoration: none; }
+      .global-nav__mobile-links a.is-current { background: #eef8fc; color: #27769B; }
+      .global-nav__mobile-links a:last-child { grid-column: 1 / -1; background: #27769B; border-color: #27769B; color: #fff; }
+    }
   </style>
 </head>
 <body>
+  <nav class="global-nav" aria-label="サイトナビゲーション">
+    <div class="global-nav__inner">
+      <a class="global-nav__brand" href="https://will-next1.github.io/will-next/" aria-label="ウィルネクスト合同会社 トップページ">
+        <img class="global-nav__logo" src="images/logo-optimized.webp" alt="" width="56" height="56" onerror="this.style.display='none'">
+        <span>
+          <span class="global-nav__title">WILL NEXT</span>
+          <span class="global-nav__company">ウィルネクスト合同会社</span>
+        </span>
+      </a>
+      <div class="global-nav__links">
+        <a href="https://will-next1.github.io/will-next/">トップ</a>
+        <a href="https://will-next1.github.io/will-next/salon-consulting/">料金プラン</a>
+        <a href="https://will-next1.github.io/will-next/web-production/">ホームページ制作</a>
+        <a class="is-current" href="https://will-next1.github.io/salon-hearing-sheet/">サロン診断</a>
+        <a href="https://will-next1.github.io/will-next/index.html#contact">お問い合わせ</a>
+      </div>
+      <button class="global-nav__mobile-button" type="button" data-mobile-menu-button aria-controls="global-mobile-menu" aria-expanded="false" aria-label="メニューを開く">☰</button>
+    </div>
+    <div id="global-mobile-menu" class="global-nav__mobile-links" data-mobile-menu aria-label="モバイルナビゲーション">
+      <a href="https://will-next1.github.io/will-next/">トップ</a>
+      <a href="https://will-next1.github.io/will-next/salon-consulting/">料金プラン</a>
+      <a href="https://will-next1.github.io/will-next/web-production/">ホームページ制作</a>
+      <a class="is-current" href="https://will-next1.github.io/salon-hearing-sheet/">サロン診断</a>
+      <a href="https://will-next1.github.io/will-next/index.html#contact">お問い合わせ</a>
+    </div>
+  </nav>
   <header class="hero" id="top">
     <div class="wrap hero-grid">
       <div class="brand">WILL NEXT LLC.</div>
@@ -337,6 +386,23 @@
   </footer>
 
   <script>
+    const mobileMenuButton = document.querySelector('[data-mobile-menu-button]');
+    const mobileMenu = document.querySelector('[data-mobile-menu]');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('is-open');
+        mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('is-open');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
     /* 質問データ: 内容変更はここで行えます。 */
     const diagnosisCategories = [
       {
